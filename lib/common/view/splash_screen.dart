@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return DefaultLayout(
       child: Center(
           child: Image.asset(
-            'asset/image/app_logo.png',
+            'asset/image/icon/icon.png',
             fit: BoxFit.contain,
             width: double.infinity,
             height: double.infinity,
