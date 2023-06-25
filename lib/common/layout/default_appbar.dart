@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/const/colors.dart';
 import 'package:flutter/material.dart';
 
 class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -19,9 +20,17 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(widget.title),
-      elevation: 0.0,
+      title: Text(
+        widget.title,
+        style: const TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       centerTitle: true,
+      elevation: 0.0,
+      backgroundColor: BACKGROUND_COLOR,
+      foregroundColor: DEFAULT_TEXT_COLOR,
     );
   }
 }
