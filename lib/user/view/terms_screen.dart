@@ -1,3 +1,5 @@
+import 'package:custom_clothes/common/layout/default_appbar.dart';
+import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 
 class TermsScreen extends StatelessWidget {
@@ -5,6 +7,11 @@ class TermsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('asdf');
+    return DefaultLayout(
+      appbar: DefaultAppBar(
+        title: '이용약관',
+      ),
+      child: Text('asdf'),
+    );
   }
 }

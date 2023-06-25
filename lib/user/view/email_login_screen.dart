@@ -1,5 +1,6 @@
 import 'package:custom_clothes/common/component/custom_text_form_field.dart';
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class EmailLoginScreen extends StatelessWidget {
       color: DARK_GREY_COLOR,
     );
     return DefaultLayout(
+      appbar: DefaultAppBar(title: '이메일 로그인'),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16.0,

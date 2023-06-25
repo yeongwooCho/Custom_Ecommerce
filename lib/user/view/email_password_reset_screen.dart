@@ -1,3 +1,5 @@
+import 'package:custom_clothes/common/layout/default_appbar.dart';
+import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 
 class EmailPasswordResetScreen extends StatelessWidget {
@@ -5,7 +7,11 @@ class EmailPasswordResetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Text('asdf');
+    return DefaultLayout(
+      appbar: DefaultAppBar(
+        title: '비밀번호 초기화',
+      ),
+      child: Text('asdf'),
+    );
   }
 }

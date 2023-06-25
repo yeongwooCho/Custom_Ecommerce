@@ -8,14 +8,10 @@ class EmailRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      // appbar: defaultAppBar(title: '회원가입'),
-      appbar: const DefaultAppBar(
+      appbar: DefaultAppBar(
         title: '회원가입',
       ),
-      child: GestureDetector(
-        onTap: () {},
-        child: Text('asdf'),
-      ),
+      child: Text('asdf'),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:custom_clothes/common/layout/default_appbar.dart';
+import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 
 class EmailFindScreen extends StatelessWidget {
@@ -5,7 +7,11 @@ class EmailFindScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Text('asdf');
+    return DefaultLayout(
+      appbar: DefaultAppBar(
+        title: '아이디 찾기',
+      ),
+      child: Text('asdf'),
+    );
   }
 }
