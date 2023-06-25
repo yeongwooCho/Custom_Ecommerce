@@ -1,6 +1,7 @@
 import 'package:custom_clothes/common/component/custom_text_form_field.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/material.dart';
 
 class EmailLoginScreen extends StatelessWidget {
@@ -45,7 +46,10 @@ class EmailLoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RouteNames.emailRegister);
+                    },
                     child: Text(
                       '회원가입',
                       style: subTextStyle,
@@ -58,9 +62,12 @@ class EmailLoginScreen extends StatelessWidget {
                   height: 14.0,
                 ),
                 Expanded(
-                  child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RouteNames.emailFind);
+                    },
                     child: Text(
-                      '아이디 찾기',
+                      '이메일 찾기',
                       style: subTextStyle,
                     ),
                   ),
@@ -71,7 +78,10 @@ class EmailLoginScreen extends StatelessWidget {
                   height: 14.0,
                 ),
                 Expanded(
-                  child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RouteNames.emailPasswordReset);
+                    },
                     child: Text(
                       '비밀번호 초기화',
                       style: subTextStyle,
