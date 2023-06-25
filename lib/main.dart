@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'common/const/colors.dart';
 import 'common/view/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -26,7 +28,6 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: ThemeData(
-        backgroundColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: WHITE_TEXT_COLOR,
