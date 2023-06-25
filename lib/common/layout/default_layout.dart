@@ -14,7 +14,9 @@ class DefaultLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor ?? Colors.white, // 기본배경이 완전 흰색은 아니다.
-      body: child,
+      body: SafeArea(
+        child: child,
+      ),
     );
   }
 }

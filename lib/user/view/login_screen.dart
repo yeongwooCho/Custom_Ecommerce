@@ -7,9 +7,71 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      child: Center(
-        child: Text('로그인 화면'),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 24.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Center(
+                child: Image.asset(
+                  'asset/image/logo/logo.png',
+                  width: 120.0,
+                  height: 120.0,
+                ),
+              ),
+            ),
+            _renderButtons(),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _renderButtons() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(Icons.email),
+              SizedBox(width: 8.0),
+              Text('이메일로 로그인'),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16.0),
+        Image.asset(
+          'asset/image/social_login_button/kakao.png',
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(height: 16.0),
+        Image.asset(
+          'asset/image/social_login_button/naver.png',
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(height: 16.0),
+        Image.asset(
+          'asset/image/social_login_button/apple.png',
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(height: 16.0),
+        Image.asset(
+          'asset/image/social_login_button/google.png',
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
+      ],
     );
   }
 }
