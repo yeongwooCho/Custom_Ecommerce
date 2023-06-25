@@ -2,7 +2,6 @@ import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/material.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -21,13 +20,27 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return DefaultLayout(
       child: Center(
-          child: Image.asset(
-            'asset/image/icon/icon.png',
-            fit: BoxFit.contain,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'asset/image/logo/logo.png',
+              fit: BoxFit.contain,
+              width: 160.0,
+              height: 160.0,
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              'Have Custom',
+              style: TextStyle(
+                fontSize: 36.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10.0),
+          ],
         ),
+      ),
     );
   }
 
@@ -38,7 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 }
-
 
 // import 'package:custom_clothes/common/layout/default_layout.dart';
 // import 'package:flutter/material.dart';
