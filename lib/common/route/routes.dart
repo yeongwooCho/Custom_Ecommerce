@@ -1,3 +1,4 @@
+import 'package:custom_clothes/home/view/home_screen.dart';
 import 'package:custom_clothes/user/view/email_find_screen.dart';
 import 'package:custom_clothes/user/view/email_login_screen.dart';
 import 'package:custom_clothes/user/view/email_password_reset_screen.dart';
@@ -20,6 +21,9 @@ class RouteNames {
   static const String emailPasswordReset = '/email/password/reset';
   static const String terms = '/terms';
 
+  // home
+  static const String home = '/home';
+
   // // user
   // static const String onBoarding = '/on_boarding';
   // static const String register = '/register';
@@ -40,6 +44,8 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   RouteNames.emailFind: (_) => EmailFindScreen(),
   RouteNames.emailPasswordReset: (_) => EmailPasswordResetScreen(),
   RouteNames.terms: (_) => TermsScreen(),
+
+  RouteNames.home: (_) => HomeScreen(),
 
   // // user
   // RouteNames.onBoarding: (_) => OnBoardingScreen(),

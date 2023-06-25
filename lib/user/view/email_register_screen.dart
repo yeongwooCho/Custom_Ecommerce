@@ -1,6 +1,7 @@
 import 'package:custom_clothes/common/component/custom_text_form_field.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/material.dart';
 
 class EmailRegisterScreen extends StatefulWidget {
@@ -64,10 +65,12 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen> {
                         ],
                       ),
                       Expanded(
-                        child: SizedBox(height: 24,),
+                        child: SizedBox(height: 24),
                       ),
                       ElevatedButton(
-                        onPressed: isPhone ? () {} : null,
+                        onPressed: isPhone ? () {
+                          Navigator.of(context).pushNamed(RouteNames.terms);
+                        } : null,
                         child: Text('회원가입'),
                       ),
                     ],
