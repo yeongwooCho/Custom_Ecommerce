@@ -34,9 +34,9 @@ class EmailLoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            CustomTextField(title: '이메일'),
+            CustomTextFormField(title: '이메일'),
             const SizedBox(height: 8.0),
-            CustomTextField(title: '비밀번호'),
+            CustomTextFormField(title: '비밀번호'),
             const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {},
