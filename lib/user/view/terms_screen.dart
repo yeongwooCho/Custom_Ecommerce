@@ -153,7 +153,7 @@ class _TermsScreenState extends State<TermsScreen> {
                   (isCheckLocation && isCheckService && isCheckPersonalInfo)
                       ? () {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              RouteNames.home, (route) => false);
+                              RouteNames.root, (route) => false);
                         }
                       : null,
               child: Text('회원가입 완료'),

@@ -41,7 +41,7 @@ class EmailLoginScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    RouteNames.home, (route) => false);
+                    RouteNames.root, (route) => false);
               },
               child: Text('이메일로 로그인'),
             ),

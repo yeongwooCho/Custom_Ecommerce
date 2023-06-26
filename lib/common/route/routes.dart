@@ -1,12 +1,12 @@
-import 'package:custom_clothes/home/view/home_screen.dart';
+import 'package:custom_clothes/common/view/root_tab.dart';
 import 'package:custom_clothes/user/view/email_find_screen.dart';
 import 'package:custom_clothes/user/view/email_login_screen.dart';
 import 'package:custom_clothes/user/view/email_password_reset_screen.dart';
 import 'package:custom_clothes/user/view/email_register_screen.dart';
 import 'package:custom_clothes/user/view/login_screen.dart';
 import 'package:custom_clothes/user/view/terms_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 // TODO: arguments에 대한 정의 필요
 class RouteNames {
@@ -21,8 +21,9 @@ class RouteNames {
   static const String emailPasswordReset = '/email/password/reset';
   static const String terms = '/terms';
 
-  // home
-  static const String home = '/home';
+  // root tab
+  static const String root = '/root';
+
 
   // // user
   // static const String onBoarding = '/on_boarding';
@@ -45,7 +46,7 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   RouteNames.emailPasswordReset: (_) => EmailPasswordResetScreen(),
   RouteNames.terms: (_) => TermsScreen(),
 
-  RouteNames.home: (_) => HomeScreen(),
+  RouteNames.root: (_) => RootTab(),
 
   // // user
   // RouteNames.onBoarding: (_) => OnBoardingScreen(),
