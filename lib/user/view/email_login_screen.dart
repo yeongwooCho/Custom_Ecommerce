@@ -1,5 +1,6 @@
 import 'package:custom_clothes/common/component/custom_text_form_field.dart';
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
@@ -10,11 +11,7 @@ class EmailLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subTextStyle = TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 14.0,
-      color: DARK_GREY_COLOR,
-    );
+    const subTextStyle = subBodyTextStyle;
     return DefaultLayout(
       appbar: DefaultAppBar(title: '이메일 로그인'),
       child: Padding(

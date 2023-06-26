@@ -1,4 +1,5 @@
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,10 +17,7 @@ class _MypageScreenState extends State<MypageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 18.0,
-    );
+    const textStyle = bodyBoldTextStyle;
     return DefaultLayout(
       appbar: DefaultAppBar(title: '내정보'),
       child: Column(
@@ -35,10 +33,7 @@ class _MypageScreenState extends State<MypageScreen> {
               children: [
                 Text(
                   '안녕하세요 김00님!',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: titleTextStyle,
                 ),
                 const SizedBox(height: 24.0),
                 Padding(

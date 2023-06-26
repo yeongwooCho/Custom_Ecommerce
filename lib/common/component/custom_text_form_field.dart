@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -22,10 +23,7 @@ class CustomTextFormField extends StatelessWidget {
             padding: const EdgeInsets.only(left: 4.0),
             child: Text(
               title!,
-              style: const TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
-              ),
+              style: bodyMediumTextStyle,
             ),
           ),
         const SizedBox(height: 4.0),

@@ -1,4 +1,5 @@
 import 'package:custom_clothes/common/component/custom_text_form_field.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,9 @@ class EmailFindScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   '아이디 찾기를 위해\n휴대폰 인증을 해주세요',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: titleTextStyle,
                 ),
                 const SizedBox(height: 36.0),
                 CustomTextFormField(
@@ -41,7 +39,7 @@ class EmailFindScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text('아이디 찾기'),
+              child: const Text('아이디 찾기'),
             ),
           ],
         ),

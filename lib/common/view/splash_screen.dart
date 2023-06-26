@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 160.0,
             ),
             const SizedBox(height: 16.0),
-            Text(
+            const Text(
               'Have Custom',
-              style: TextStyle(
-                fontSize: 36.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: appNameTextStyle,
             ),
             const SizedBox(height: 10.0),
           ],

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
 import 'package:custom_clothes/user/view/login_screen.dart';
@@ -38,10 +39,7 @@ class MyApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
             minimumSize: const Size(100, 57),
-            textStyle: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-            ),
+            textStyle: bodyMediumTextStyle,
           ),
         ),
       ),

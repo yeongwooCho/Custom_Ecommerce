@@ -1,4 +1,5 @@
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
@@ -37,13 +38,9 @@ class _TermsScreenState extends State<TermsScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Have Custom 서비스\n이용약관에 동의해주세요.',
-                  style: TextStyle(
-                    color: DEFAULT_TEXT_COLOR,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: titleTextStyle,
                 ),
                 const SizedBox(height: 20.0),
                 GestureDetector(
@@ -88,13 +85,9 @@ class _TermsScreenState extends State<TermsScreen> {
                           const SizedBox(width: 12.0),
                           Text(
                             '전체 약관에 동의합니다.',
-                            style: TextStyle(
-                              color: isCheckTotalContainer
-                                  ? WHITE_TEXT_COLOR
-                                  : DEFAULT_TEXT_COLOR,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: isCheckTotalContainer
+                                ? bodyBoldWhiteTextStyle
+                                : bodyBoldTextStyle,
                           )
                         ],
                       ),
