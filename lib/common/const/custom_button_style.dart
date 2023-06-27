@@ -9,7 +9,7 @@ ButtonStyle defaultButtonStyle = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(8.0),
   ),
-  minimumSize: const Size(100, 57),
+  minimumSize: const Size(100, 60),
   textStyle: bodyMediumTextStyle,
 );
 
