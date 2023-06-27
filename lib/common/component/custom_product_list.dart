@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomProductListScreen extends StatefulWidget {
   final List<String> items;
+  final bool isScroll;
 
   const CustomProductListScreen({
     Key? key,
     required this.items,
+    required this.isScroll,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,7 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: widget.isScroll ? null : NeverScrollableScrollPhysics(),
       // shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

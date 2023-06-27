@@ -27,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
     int rowCount = (_items.length ~/ 2) + (_items.length % 2); // 층의 갯수
     double itemWidth = (MediaQuery.of(context).size.width - 40) / 2;
     double itemHeight = itemWidth / 16 * 27;
-    double gridHeight = (rowCount * itemHeight) + ((rowCount -1) * 12);
+    double gridHeight = (rowCount * itemHeight) + ((rowCount - 1) * 12);
     return DefaultLayout(
       appbar: DefaultAppBar(title: '탐색'),
       child: SingleChildScrollView(
@@ -66,7 +66,11 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(height: 24.0),
               SizedBox(
                 height: gridHeight,
-                  child: CustomProductListScreen(items: _items,)),
+                child: CustomProductListScreen(
+                  items: _items,
+                  isScroll: false,
+                ),
+              ),
             ],
           ),
         ),
@@ -97,7 +101,6 @@ class _CategoriesState extends State<_Categories> {
 
   @override
   Widget build(BuildContext context) {
-
     // rowCount
     // crossAxisCount: 2,
     // mainAxisSpacing: 12,
