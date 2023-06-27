@@ -1,4 +1,6 @@
+import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
+import 'package:custom_clothes/custom/view/select_fabric_screen.dart';
 import 'package:custom_clothes/user/view/email_find_screen.dart';
 import 'package:custom_clothes/user/view/email_login_screen.dart';
 import 'package:custom_clothes/user/view/email_password_reset_screen.dart';
@@ -24,6 +26,9 @@ class RouteNames {
   // root tab
   static const String root = '/root';
 
+  // custom
+  static const String selectFabric = '/select/fabric';
+
 
   // // user
   // static const String onBoarding = '/on_boarding';
@@ -47,6 +52,17 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   RouteNames.terms: (_) => TermsScreen(),
 
   RouteNames.root: (_) => RootTab(),
+
+  RouteNames.selectFabric: (context) {
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
+    String id = '';
+    if (args.title == 'id') {
+      id = args.message;
+    } else {
+      id = '0';
+    }
+    return SelectFabricScreen(id: id);
+  }
 
   // // user
   // RouteNames.onBoarding: (_) => OnBoardingScreen(),

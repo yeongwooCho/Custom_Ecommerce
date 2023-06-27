@@ -7,12 +7,16 @@ class CustomMoveModal extends StatelessWidget {
   final String id;
   final String topButtonTitle;
   final String bottomButtonTitle;
+  final Function()? onPressedTopButton;
+  final Function()? onPressedBottomButton;
 
   const CustomMoveModal({
     Key? key,
     required this.id,
     required this.topButtonTitle,
     required this.bottomButtonTitle,
+    required this.onPressedTopButton,
+    required this.onPressedBottomButton,
   }) : super(key: key);
 
   @override
@@ -33,15 +37,24 @@ class CustomMoveModal extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-
+                if (onPressedTopButton != null) {
+                  onPressedTopButton!();
+                }
               },
               child: Text(topButtonTitle),
             ),
             const SizedBox(height: 12.0),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (onPressedBottomButton != null) {
+                  onPressedBottomButton!();
+                }
+              },
               style: secondButtonStyle,
-              child: Text(bottomButtonTitle, style: bodyMediumTextStyle,),
+              child: Text(
+                bottomButtonTitle,
+                style: bodyMediumTextStyle,
+              ),
             ),
           ],
         ),

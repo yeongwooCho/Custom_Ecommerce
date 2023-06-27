@@ -3,6 +3,8 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_button_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/screen_arguments.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/custom/component/custom_move_modal.dart';
 import 'package:custom_clothes/custom/view/custom_guide_screen.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +120,16 @@ class _CustomScreenState extends State<CustomScreen> {
       builder: (_) => CustomMoveModal(
         id: id,
         topButtonTitle: isDoing ? '완료 탭으로 이동' : '구매하기',
+        onPressedTopButton: () {
+          print("완료 탭으로 이동 or 구매 하기");
+        },
         bottomButtonTitle: '편집하기',
+        onPressedBottomButton: () {
+          Navigator.of(context).pushNamed(
+            RouteNames.selectFabric,
+            arguments: ScreenArguments('id', id),
+          );
+        },
       ),
     );
   }

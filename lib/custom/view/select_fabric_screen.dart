@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:flutter/material.dart';
 
 class SelectFabricScreen extends StatelessWidget {
