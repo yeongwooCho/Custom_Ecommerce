@@ -15,11 +15,14 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<String> _items = [
-    '안녕 as df',
-    '안녕 xc v',
-    '안녕 as df',
-    '안녕 as df',
-    '안녕 xc v',
+    '4',
+    '3',
+    '4',
+    '4',
+    '1',
+    '2',
+    '1',
+    '2',
   ];
 
   @override

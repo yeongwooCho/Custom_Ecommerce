@@ -16,14 +16,14 @@ class _CustomScreenState extends State<CustomScreen> {
   bool isDoing = true;
 
   List<String> doingItems = [
-    '123',
-    '234',
+    '1',
+    '2',
   ];
   List<String> completeItems = [
-    'a',
-    'b',
-    'b',
-    'b',
+    '1',
+    '2',
+    '3',
+    '4',
   ];
 
   @override

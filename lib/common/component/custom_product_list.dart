@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/const/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductListScreen extends StatefulWidget {
@@ -18,6 +19,10 @@ class CustomProductListScreen extends StatefulWidget {
 class _CustomProductListScreenState extends State<CustomProductListScreen> {
   @override
   Widget build(BuildContext context) {
+    // int rowCount = (widget.items.length ~/ 2) + (widget.items.length % 2); // 층의 갯수
+    double itemWidth = (MediaQuery.of(context).size.width - 40) / 2;
+    double itemHeight = itemWidth / 16 * 27;
+    double footerHeight = itemHeight - itemWidth;
     return GridView.builder(
       physics: widget.isScroll ? null : NeverScrollableScrollPhysics(),
       // shrinkWrap: true,
@@ -29,18 +34,43 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
       ),
       itemCount: widget.items.length,
       itemBuilder: (context, index) => Card(
-        elevation: 8,
+        elevation: 0,
         child: GridTile(
-          child: Center(
-            child: Text(
-              widget.items[index],
-              style: const TextStyle(fontSize: 16),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Image.asset(
+              'asset/image/product/${widget.items[index]}.png',
+              fit: BoxFit.contain,
             ),
           ),
-          footer: GridTileBar(
-            backgroundColor: Colors.black38,
-            title: const Text('footer'),
-            subtitle: Text('Item '),
+          footer: Container(
+            height: footerHeight,
+            child: GridTileBar(
+              backgroundColor: BACKGROUND_COLOR,
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    '초록색을 갖고 있는 보풀 가득한 니트',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                      color: DEFAULT_TEXT_COLOR,
+                    ),
+                    maxLines: 2,
+                  ),
+                  Text(
+                    '₩ 30,000원 ',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: DEFAULT_TEXT_COLOR,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
