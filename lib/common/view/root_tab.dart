@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/custom/view/custom_screen.dart';
 import 'package:custom_clothes/mypage/view/mypage_screen.dart';
@@ -46,7 +47,10 @@ class _RootTabState extends State<RootTab> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      bottomNavigationBar: renderBottomNavigationBar(),
+      bottomNavigationBar: SizedBox(
+        height: 80.0,
+        child: renderBottomNavigationBar(),
+      ),
       child: Center(
         child: TabBarView(
           controller: controller,
@@ -62,6 +66,11 @@ class _RootTabState extends State<RootTab> with TickerProviderStateMixin {
 
   BottomNavigationBar renderBottomNavigationBar() {
     return BottomNavigationBar(
+      backgroundColor: BACKGROUND_COLOR,
+      selectedItemColor: DEFAULT_TEXT_COLOR,
+      selectedFontSize: 12.0,
+      unselectedItemColor: DARK_GREY_COLOR,
+      unselectedFontSize: 12.0,
       onTap: (int index) {
         controller?.animateTo(index);
       },
@@ -70,7 +79,7 @@ class _RootTabState extends State<RootTab> with TickerProviderStateMixin {
     );
   }
 
-  List<BottomNavigationBarItem> getItems(){
+  List<BottomNavigationBarItem> getItems() {
     return const [
       BottomNavigationBarItem(
         icon: Icon(Icons.cut),

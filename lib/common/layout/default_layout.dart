@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DefaultLayout extends StatelessWidget {
   final Color? backgroundColor;
   final PreferredSizeWidget? appbar;
-  final BottomNavigationBar? bottomNavigationBar;
+  final Widget? bottomNavigationBar;
   final Widget child;
 
   const DefaultLayout({
