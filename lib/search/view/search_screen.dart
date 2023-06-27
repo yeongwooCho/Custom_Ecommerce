@@ -72,6 +72,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: CustomProductListScreen(
                   items: _items,
                   isScroll: false,
+                  onTapItem: ({required String id}) {
+                    print('상품 상세화면');
+                  },
                 ),
               ),
             ],

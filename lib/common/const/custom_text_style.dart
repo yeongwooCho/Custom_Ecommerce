@@ -36,3 +36,14 @@ const subBodyTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
   color: DARK_GREY_COLOR,
 );
+
+const productTitleStyle = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.w500,
+  color: DEFAULT_TEXT_COLOR,
+);
+const productMoneyStyle = TextStyle(
+  fontSize: 20.0,
+  fontWeight: FontWeight.bold,
+  color: DEFAULT_TEXT_COLOR,
+);

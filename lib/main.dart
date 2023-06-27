@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:custom_clothes/common/const/custom_button_style.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
@@ -31,16 +32,7 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: WHITE_TEXT_COLOR,
-            backgroundColor: PRIMARY_COLOR,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            minimumSize: const Size(100, 57),
-            textStyle: bodyMediumTextStyle,
-          ),
+          style: defaultButtonStyle,
         ),
       ),
       home: const SplashScreen(),

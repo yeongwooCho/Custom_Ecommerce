@@ -1,7 +1,9 @@
 import 'package:custom_clothes/common/component/custom_product_list.dart';
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/const/custom_button_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/custom/component/custom_move_modal.dart';
 import 'package:custom_clothes/custom/view/custom_guide_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +30,6 @@ class _CustomScreenState extends State<CustomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle deactivateStyle = ElevatedButton.styleFrom(
-      foregroundColor: DARK_GREY_COLOR,
-      backgroundColor: LIGHT_GREY_COLOR,
-    );
-
     return DefaultLayout(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -66,7 +63,7 @@ class _CustomScreenState extends State<CustomScreen> {
                     isDoing = true;
                     setState(() {});
                   },
-                  style: isDoing ? null : deactivateStyle,
+                  style: isDoing ? null : deactivateButtonStyle,
                   child: const SizedBox(
                     width: 100.0,
                     child: Row(
@@ -85,7 +82,7 @@ class _CustomScreenState extends State<CustomScreen> {
                     isDoing = false;
                     setState(() {});
                   },
-                  style: isDoing ? deactivateStyle : null,
+                  style: isDoing ? deactivateButtonStyle : null,
                   child: const SizedBox(
                     width: 100.0,
                     child: Row(
@@ -105,10 +102,23 @@ class _CustomScreenState extends State<CustomScreen> {
               child: CustomProductListScreen(
                 isScroll: true,
                 items: isDoing ? doingItems : completeItems,
+                onTapItem: onTapItem,
               ),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  void onTapItem({required String id}) {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      builder: (_) => CustomMoveModal(
+        id: id,
+        topButtonTitle: isDoing ? '완료 탭으로 이동' : '구매하기',
+        bottomButtonTitle: '편집하기',
       ),
     );
   }

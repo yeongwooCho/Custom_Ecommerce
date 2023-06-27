@@ -1,14 +1,17 @@
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductListScreen extends StatefulWidget {
   final List<String> items;
   final bool isScroll;
+  final void Function({required String id})? onTapItem;
 
   const CustomProductListScreen({
     Key? key,
     required this.items,
     required this.isScroll,
+    required this.onTapItem,
   }) : super(key: key);
 
   @override
@@ -35,40 +38,37 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
       itemCount: widget.items.length,
       itemBuilder: (context, index) => Card(
         elevation: 0,
-        child: GridTile(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Image.asset(
-              'asset/image/product/${widget.items[index]}.png',
-              fit: BoxFit.contain,
+        child: GestureDetector(
+          onTap: (){
+            widget.onTapItem!(id: '$index');
+          },
+          child: GridTile(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Image.asset(
+                'asset/image/product/${widget.items[index]}.png',
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          footer: Container(
-            height: footerHeight,
-            child: GridTileBar(
-              backgroundColor: BACKGROUND_COLOR,
-              title: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    '초록색을 갖고 있는 보풀 가득한 니트',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                      color: DEFAULT_TEXT_COLOR,
+            footer: Container(
+              height: footerHeight,
+              child: GridTileBar(
+                backgroundColor: BACKGROUND_COLOR,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      '초록색을 갖고 있는 보풀 가득한 니트',
+                      style: productTitleStyle,
+                      maxLines: 2,
                     ),
-                    maxLines: 2,
-                  ),
-                  Text(
-                    '₩ 30,000원 ',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: DEFAULT_TEXT_COLOR,
+                    Text(
+                      '₩ 30,000원 ',
+                      style: productMoneyStyle,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
