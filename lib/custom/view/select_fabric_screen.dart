@@ -70,17 +70,15 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                     const SizedBox(height: 24.0),
                     _CustomContainerButton(
                       title: '원단 종류 지정',
+                      isSelected: selectedItems.isNotEmpty,
                       onTap: () {
-                        showTypeModal(
-                          context: context,
-                          // fabricData: fabricItems,
-                          // selectedItem: selectedItems,
-                        );
+                        showTypeModal(context: context);
                       },
                     ),
                     const SizedBox(height: 16.0),
                     _CustomContainerButton(
                       title: '원단 배합률 지정',
+                      isSelected: false,
                       onTap: () {
                         showMixingRatioModal(context: context);
                       },
@@ -88,6 +86,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                     const SizedBox(height: 16.0),
                     _CustomContainerButton(
                       title: '원단 색상 지정',
+                      isSelected: false,
                       onTap: () {
                         showColorModal(context: context);
                       },
@@ -117,8 +116,14 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
       builder: (_) => SelectFabricTypeBottomSheet(
         fabricItems: fabricItems,
         selectedItems: selectedItems,
+        popBottomSheet: popBottomSheet,
       ),
     );
+  }
+
+  void popBottomSheet() {
+    Navigator.of(context).pop();
+    setState(() {});
   }
 
   void showMixingRatioModal({required BuildContext context}) {
@@ -142,11 +147,13 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
 
 class _CustomContainerButton extends StatelessWidget {
   final String title;
+  final bool isSelected;
   final void Function()? onTap;
 
   const _CustomContainerButton({
     Key? key,
     required this.title,
+    required this.isSelected,
     required this.onTap,
   }) : super(key: key);
 
@@ -176,10 +183,10 @@ class _CustomContainerButton extends StatelessWidget {
                 style: bodyBoldTextStyle,
               ),
               const SizedBox(width: 12.0),
-              const Icon(
+              Icon(
                 Icons.check_circle,
-                color: DARK_GREY_COLOR,
-                size: 24.0,
+                size: 30.0,
+                color: isSelected ? PRIMARY_COLOR : DARK_GREY_COLOR,
               ),
             ],
           ),

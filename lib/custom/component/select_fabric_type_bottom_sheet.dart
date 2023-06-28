@@ -5,18 +5,22 @@ import 'package:flutter/material.dart';
 class SelectFabricTypeBottomSheet extends StatefulWidget {
   final List<String> fabricItems;
   final List<String> selectedItems;
+  final void Function()? popBottomSheet;
 
   const SelectFabricTypeBottomSheet({
     Key? key,
     required this.fabricItems,
     required this.selectedItems,
+    required this.popBottomSheet,
   }) : super(key: key);
 
   @override
-  State<SelectFabricTypeBottomSheet> createState() => _SelectFabricTypeBottomSheetState();
+  State<SelectFabricTypeBottomSheet> createState() =>
+      _SelectFabricTypeBottomSheetState();
 }
 
-class _SelectFabricTypeBottomSheetState extends State<SelectFabricTypeBottomSheet> {
+class _SelectFabricTypeBottomSheetState
+    extends State<SelectFabricTypeBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,9 +70,7 @@ class _SelectFabricTypeBottomSheetState extends State<SelectFabricTypeBottomShee
                 ),
                 const SizedBox(height: 24.0),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+                  onPressed: widget.popBottomSheet,
                   child: const Text('원단 종류 지정'),
                 ),
               ],
