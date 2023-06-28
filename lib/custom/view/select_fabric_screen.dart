@@ -2,7 +2,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
-import 'package:custom_clothes/custom/component/select_fabric_mixing_ratio_modal.dart';
+import 'package:custom_clothes/custom/component/select_fabric_mixing_ratio_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/select_fabric_type_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/selectable_Item.dart';
 import 'package:flutter/material.dart';
