@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/custom/component/select_fabric_color_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/select_fabric_mixing_ratio_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/select_fabric_type_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/selectable_Item.dart';
@@ -48,6 +49,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
   ];
   List<String> selectedItems = [];
   List<double> selectedMixingRatioValues = [];
+  Color? selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -90,16 +92,21 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                     const SizedBox(height: 16.0),
                     _CustomContainerButton(
                       title: '원단 색상 지정',
-                      isSelected: false,
+                      isSelected: selectedColor != null,
                       onTap: () {
-                        (selectedItems.isEmpty || selectedMixingRatioValues.isEmpty)
+                        (selectedItems.isEmpty ||
+                                selectedMixingRatioValues.isEmpty)
                             ? null
                             : showColorModal(context: context);
                       },
                     ),
                     const SizedBox(height: 36.0),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: (selectedItems.isNotEmpty &&
+                              selectedMixingRatioValues.isNotEmpty &&
+                              selectedColor != null)
+                          ? () {}
+                          : null,
                       child: const Text('원단 지정 완료'),
                     ),
                   ],
@@ -144,11 +151,23 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
 
   void showColorModal({required BuildContext context}) {
     showModalBottomSheet(
+      isDismissible: true,
+      isScrollControlled: true,
       context: context,
-      builder: (_) => Center(
-        child: Text('asdf'),
+      barrierColor: BARRIER_COLOR,
+      backgroundColor: EMPTY_COLOR,
+      builder: (_) => SelectFabricColorBottomSheet(
+        selectColor: selectColor,
+        popBottomSheet: popBottomSheet,
       ),
     );
+  }
+
+  void selectColor({
+    required Color color,
+  }) {
+    selectedColor = color;
+    setState(() {});
   }
 
   void popBottomSheet() {
