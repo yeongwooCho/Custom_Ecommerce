@@ -5,6 +5,7 @@ const PRIMARY_COLOR = Color(0xFF17308A);
 
 const DARK_GREY_COLOR = Color(0xFF999898);
 const LIGHT_GREY_COLOR = Color(0xFFEFF1F3);
+const MIDDLE_GREY_COLOR = Color(0xFFDCDCDD);
 
 // Text Color
 const DEFAULT_TEXT_COLOR = Color(0xFF1C1C1E);

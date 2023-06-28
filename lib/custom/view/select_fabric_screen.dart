@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/custom/component/select_fabric_mixing_ratio_modal.dart';
 import 'package:custom_clothes/custom/component/select_fabric_type_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/selectable_Item.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +80,11 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                     _CustomContainerButton(
                       title: '원단 배합률 지정',
                       isSelected: false,
-                      onTap: () {
-                        showMixingRatioModal(context: context);
-                      },
+                      onTap: selectedItems.isEmpty
+                          ? null
+                          : () {
+                              showMixingRatioModal(context: context);
+                            },
                     ),
                     const SizedBox(height: 16.0),
                     _CustomContainerButton(
@@ -121,16 +124,16 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
     );
   }
 
-  void popBottomSheet() {
-    Navigator.of(context).pop();
-    setState(() {});
-  }
-
   void showMixingRatioModal({required BuildContext context}) {
     showModalBottomSheet(
+      isDismissible: true,
+      isScrollControlled: true,
       context: context,
-      builder: (_) => Center(
-        child: Text('asdf'),
+      barrierColor: BARRIER_COLOR,
+      backgroundColor: EMPTY_COLOR,
+      builder: (_) => SelectFabricMixingRatioBottomSheet(
+        selectedItems: selectedItems,
+        popBottomSheet: popBottomSheet,
       ),
     );
   }
@@ -142,6 +145,11 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
         child: Text('asdf'),
       ),
     );
+  }
+
+  void popBottomSheet() {
+    Navigator.of(context).pop();
+    setState(() {});
   }
 }
 
