@@ -47,6 +47,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
     '기모',
   ];
   List<String> selectedItems = [];
+  List<double> selectedMixingRatioValues = [];
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                     const SizedBox(height: 16.0),
                     _CustomContainerButton(
                       title: '원단 배합률 지정',
-                      isSelected: false,
+                      isSelected: selectedMixingRatioValues.isNotEmpty,
                       onTap: selectedItems.isEmpty
                           ? null
                           : () {
@@ -91,7 +92,9 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                       title: '원단 색상 지정',
                       isSelected: false,
                       onTap: () {
-                        showColorModal(context: context);
+                        (selectedItems.isEmpty || selectedMixingRatioValues.isEmpty)
+                            ? null
+                            : showColorModal(context: context);
                       },
                     ),
                     const SizedBox(height: 36.0),
@@ -133,6 +136,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
       backgroundColor: EMPTY_COLOR,
       builder: (_) => SelectFabricMixingRatioBottomSheet(
         selectedItems: selectedItems,
+        selectedMixingRatioValues: selectedMixingRatioValues,
         popBottomSheet: popBottomSheet,
       ),
     );

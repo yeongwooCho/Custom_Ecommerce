@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class SelectFabricMixingRatioBottomSheet extends StatefulWidget {
   final List<String> selectedItems;
+  final List<double> selectedMixingRatioValues;
   final void Function()? popBottomSheet;
 
   const SelectFabricMixingRatioBottomSheet({
     Key? key,
     required this.selectedItems,
+    required this.selectedMixingRatioValues,
     required this.popBottomSheet,
   }) : super(key: key);
 
@@ -20,9 +22,28 @@ class SelectFabricMixingRatioBottomSheet extends StatefulWidget {
 class _SelectFabricMixingRatioBottomSheetState
     extends State<SelectFabricMixingRatioBottomSheet> {
   double ratioValue = 25.0;
+  List<double> selectedMixingRatioItemsValues = [];
+  List<ValueChanged<double>> valueChanges = [];
+  double totalRatio = 100.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    int selectedItemsCount = widget.selectedItems.length;
+    selectedMixingRatioItemsValues = initMixingRatioItemsValues(
+      itemCount: selectedItemsCount,
+    );
+    totalRatio = selectedMixingRatioItemsValues.reduce(
+          (value, element) => value + element,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    int selectedItemsCount = widget.selectedItems.length;
+    valueChanges = getValueChanges(itemCount: selectedItemsCount);
+
     return Column(
       children: [
         Expanded(
@@ -45,18 +66,23 @@ class _SelectFabricMixingRatioBottomSheetState
               children: [
                 Column(
                   children: widget.selectedItems
-                      .map(
-                        (e) => CustomRatioSlider(
-                          title: e,
-                          ratioValue: ratioValue,
-                          onRatioValueChange: onRatioValueChange,
-                        ),
-                      )
-                      .toList(),
+                      .asMap()
+                      .entries
+                      .map((entry) {
+                    int index = entry.key;
+                    String title = entry.value;
+
+                    return CustomRatioSlider(
+                      title: title,
+                      ratioValue:
+                      selectedMixingRatioItemsValues[index].toDouble(),
+                      onRatioValueChange: valueChanges[index],
+                    );
+                  }).toList(),
                 ),
                 CustomRatioSlider(
                   title: '배합률 합계',
-                  ratioValue: ratioValue,
+                  ratioValue: totalRatio,
                   onRatioValueChange: null,
                   thumbSize: 0.0,
                 ),
@@ -64,7 +90,12 @@ class _SelectFabricMixingRatioBottomSheetState
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ElevatedButton(
-                    onPressed: widget.popBottomSheet,
+                    onPressed: totalRatio == 100.0 ? () {
+                      for (double element in selectedMixingRatioItemsValues) {
+                        widget.selectedMixingRatioValues.add(element);
+                      }
+                      widget.popBottomSheet!();
+                    } : null,
                     child: const Text('원단 배합률 지정'),
                   ),
                 ),
@@ -76,9 +107,58 @@ class _SelectFabricMixingRatioBottomSheetState
     );
   }
 
-  void onRatioValueChange(double value) {
-    setState(() {
-      ratioValue = value;
-    });
+  List<ValueChanged<double>> getValueChanges({
+    required int itemCount,
+  }) {
+    List<ValueChanged<double>> valueChanges = [];
+
+    for (int i = 0; i < itemCount; i++) {
+      valueChanges.add((double value) {
+        setState(() {
+          double totalWithCurrentValue = selectedMixingRatioItemsValues
+              .asMap()
+              .entries
+              .fold(0.0, (previousValue, element) {
+            if (element.key == i) {
+              return previousValue;
+            }
+            return previousValue + element.value;
+          });
+
+          if (totalWithCurrentValue + value < 100) {
+            selectedMixingRatioItemsValues[i] = value;
+          } else {
+            selectedMixingRatioItemsValues[i] = 100.0 - totalWithCurrentValue;
+          }
+
+          totalRatio = selectedMixingRatioItemsValues
+              .reduce((value, element) => value + element);
+        });
+      });
+    }
+
+    return valueChanges;
+  }
+
+  List<double> initMixingRatioItemsValues({
+    required int itemCount,
+  }) {
+    if (itemCount == 0) {
+      return [];
+    }
+
+    int quotient = 100 ~/ itemCount;
+    int division = 100 % itemCount;
+    List<double> mixingRatioItemsValue = [];
+
+    for (int i = 0; i < itemCount; i++) {
+      if (i == 0) {
+        mixingRatioItemsValue.add((quotient + division).toDouble());
+      } else {
+        mixingRatioItemsValue.add(quotient.toDouble());
+      }
+    }
+
+    return mixingRatioItemsValue;
   }
 }
