@@ -107,26 +107,54 @@ class SelectFabricScreen extends StatelessWidget {
       isDismissible: true,
       isScrollControlled: true,
       context: context,
-      builder: (_) => Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 24.0,
-          horizontal: 16.0,
-        ),
-        child: Wrap(
-          direction: Axis.horizontal,
-          alignment: WrapAlignment.start,
-          spacing: 8,
-          runSpacing: 8,
-          runAlignment: WrapAlignment.start,
-          children: fabricData
-              .map(
-                (e) => SelectableItem(
-                  isSelected: true,
-                  title: e,
-                ),
-              )
-              .toList(),
-        ),
+      barrierColor: BARRIER_COLOR,
+      backgroundColor: EMPTY_COLOR,
+      builder: (_) => Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: EMPTY_COLOR,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: BACKGROUND_COLOR,
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 24.0,
+                horizontal: 16.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.start,
+                    spacing: 8,
+                    runSpacing: 8,
+                    runAlignment: WrapAlignment.start,
+                    children: fabricData
+                        .map(
+                          (e) => SelectableItem(
+                            isSelected: false,
+                            title: e,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  const SizedBox(height: 24.0),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('원단 종류 지정'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

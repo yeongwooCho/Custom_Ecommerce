@@ -21,21 +21,25 @@ class SelectableItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Chip(
-        backgroundColor: PRIMARY_COLOR,
+        backgroundColor: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
         elevation: 0.0,
         padding: const EdgeInsets.all(8.0),
-        labelPadding: const EdgeInsets.only(left: 8.0),
+        labelPadding: const EdgeInsets.only(left: 12.0),
         avatar: CircleAvatar(
-          backgroundColor: PRIMARY_COLOR,
+          backgroundColor: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
           child: Icon(
             Icons.check_circle,
             size: 30.0,
-            color: isSelected ? WHITE_TEXT_COLOR : LIGHT_GREY_COLOR,
+            color: isSelected ? WHITE_TEXT_COLOR : DARK_GREY_COLOR,
           ),
         ),
         label: Text(
           title,
-          style: isSelected ? bodyBoldWhiteTextStyle : bodyBoldTextStyle,
+          style: isSelected
+              ? bodyBoldWhiteTextStyle
+              : bodyBoldTextStyle.copyWith(
+                  color: DARK_GREY_COLOR,
+                ),
         ),
       ),
     );
