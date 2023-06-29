@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PrintingScreen extends StatefulWidget {
   final String id;
@@ -16,6 +17,14 @@ class PrintingScreen extends StatefulWidget {
 }
 
 class _PrintingScreenState extends State<PrintingScreen> {
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
@@ -46,7 +55,9 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     CustomContainerButton(
                       title: '이미지 추가',
                       isSelected: false,
-                      onTap: () {},
+                      onTap: () {
+                        getImage();
+                      },
                     ),
                     const SizedBox(height: 36.0),
                     ElevatedButton(
@@ -61,5 +72,18 @@ class _PrintingScreenState extends State<PrintingScreen> {
         ),
       ),
     );
+  }
+
+  void getImage() async {
+    // pickedFile에 ImagePicker로 가져온 이미지가 담긴다.
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+
+    // 이미지를 정상적으로 가져왔다면 텍스트 인식 실행
+    if (pickedFile != null) {
+      setState(() {
+        _image = XFile(pickedFile.path); // 가져온 이미지를 _image에 저장
+      });
+    }
   }
 }
