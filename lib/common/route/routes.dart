@@ -1,5 +1,6 @@
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
+import 'package:custom_clothes/custom/view/printing_screen.dart';
 import 'package:custom_clothes/custom/view/select_fabric_screen.dart';
 import 'package:custom_clothes/user/view/email_find_screen.dart';
 import 'package:custom_clothes/user/view/email_login_screen.dart';
@@ -28,22 +29,11 @@ class RouteNames {
 
   // custom
   static const String selectFabric = '/select/fabric';
-
-
-  // // user
-  // static const String onBoarding = '/on_boarding';
-  // static const String register = '/register';
-  // static const String registerCompletion = '/register/completion';
-  // static const String login = '/login';
-  //
-  // // group
-  // static const String groupList = '/group/list';
-  // static const String groupRegister = '/group/register';
-  // static const String groupParticipate = '/group/participate';
-  // static const String groupStatus = '/group/status';
+  static const String printing = '/printing';
 }
 
 Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
+  // login, register, findID, passwordReset
   RouteNames.login: (_) => LoginScreen(),
   RouteNames.emailLogin: (_) => EmailLoginScreen(),
   RouteNames.emailRegister: (_) => EmailRegisterScreen(),
@@ -51,8 +41,10 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   RouteNames.emailPasswordReset: (_) => EmailPasswordResetScreen(),
   RouteNames.terms: (_) => TermsScreen(),
 
+  // root tab
   RouteNames.root: (_) => RootTab(),
 
+  // custom
   RouteNames.selectFabric: (context) {
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     String id = '';
@@ -62,17 +54,15 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
       id = '0';
     }
     return SelectFabricScreen(id: id);
+  },
+  RouteNames.printing: (context) {
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
+    String id = '';
+    if (args.title == 'id') {
+      id = args.message;
+    } else {
+      id = '0';
+    }
+    return PrintingScreen(id: id);
   }
-
-  // // user
-  // RouteNames.onBoarding: (_) => OnBoardingScreen(),
-  // RouteNames.register: (_) => RegisterScreen(),
-  // RouteNames.registerCompletion: (_) => RegisterCompletionScreen(),
-  // RouteNames.login: (_) => LoginScreen(),
-  //
-  // // group
-  // RouteNames.groupList: (_) => GroupListScreen(),
-  // RouteNames.groupRegister: (_) => GroupRegisterScreen(),
-  // RouteNames.groupParticipate: (_) => GroupParticipateScreen(),
-  // RouteNames.groupStatus: (_) => GroupStatusScreen(),
 };

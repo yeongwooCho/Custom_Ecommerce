@@ -1,11 +1,12 @@
 import 'package:custom_clothes/common/const/colors.dart';
-import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/screen_arguments.dart';
+import 'package:custom_clothes/common/route/routes.dart';
+import 'package:custom_clothes/custom/component/custom_container_button.dart';
 import 'package:custom_clothes/custom/component/select_fabric_color_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/select_fabric_mixing_ratio_bottom_sheet.dart';
 import 'package:custom_clothes/custom/component/select_fabric_type_bottom_sheet.dart';
-import 'package:custom_clothes/custom/component/selectable_Item.dart';
 import 'package:flutter/material.dart';
 
 class SelectFabricScreen extends StatefulWidget {
@@ -72,7 +73,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 24.0),
-                    _CustomContainerButton(
+                    CustomContainerButton(
                       title: '원단 종류 지정',
                       isSelected: selectedItems.isNotEmpty,
                       onTap: () {
@@ -80,7 +81,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                       },
                     ),
                     const SizedBox(height: 16.0),
-                    _CustomContainerButton(
+                    CustomContainerButton(
                       title: '원단 배합률 지정',
                       isSelected: selectedMixingRatioValues.isNotEmpty,
                       onTap: selectedItems.isEmpty
@@ -90,7 +91,7 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                             },
                     ),
                     const SizedBox(height: 16.0),
-                    _CustomContainerButton(
+                    CustomContainerButton(
                       title: '원단 색상 지정',
                       isSelected: selectedColor != null,
                       onTap: () {
@@ -105,7 +106,12 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                       onPressed: (selectedItems.isNotEmpty &&
                               selectedMixingRatioValues.isNotEmpty &&
                               selectedColor != null)
-                          ? () {}
+                          ? () {
+                              Navigator.of(context).pushNamed(
+                                RouteNames.printing,
+                                arguments: ScreenArguments('id', widget.id),
+                              );
+                            }
                           : null,
                       child: const Text('원단 지정 완료'),
                     ),
@@ -173,56 +179,5 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
   void popBottomSheet() {
     Navigator.of(context).pop();
     setState(() {});
-  }
-}
-
-class _CustomContainerButton extends StatelessWidget {
-  final String title;
-  final bool isSelected;
-  final void Function()? onTap;
-
-  const _CustomContainerButton({
-    Key? key,
-    required this.title,
-    required this.isSelected,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: DEFAULT_TEXT_COLOR,
-            width: 1.0,
-          ),
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: 24.0,
-                height: 24.0,
-              ),
-              Text(
-                title,
-                style: bodyBoldTextStyle,
-              ),
-              const SizedBox(width: 12.0),
-              Icon(
-                Icons.check_circle,
-                size: 30.0,
-                color: isSelected ? PRIMARY_COLOR : DARK_GREY_COLOR,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
