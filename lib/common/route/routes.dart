@@ -4,6 +4,7 @@ import 'package:custom_clothes/common/view/root_tab.dart';
 import 'package:custom_clothes/custom/view/custom_guide_screen.dart';
 import 'package:custom_clothes/custom/view/printing_screen.dart';
 import 'package:custom_clothes/custom/view/select_fabric_screen.dart';
+import 'package:custom_clothes/purchase/view/purchase_screen.dart';
 import 'package:custom_clothes/search/view/product_detail_screen.dart';
 import 'package:custom_clothes/user/view/email_find_screen.dart';
 import 'package:custom_clothes/user/view/email_login_screen.dart';
@@ -40,6 +41,9 @@ class RouteNames {
 
   // search
   static const String productDetail = '/product/detail';
+
+  // purchase
+  static const String purchase = '/purchase';
 }
 
 Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
@@ -99,5 +103,17 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
       id = '0';
     }
     return ProductDetailScreen(id: id);
-  }
+  },
+
+  // purchase
+  RouteNames.purchase: (context) {
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
+    String id = '';
+    if (args.title == 'id') {
+      id = args.message;
+    } else {
+      id = '0';
+    }
+    return PurchaseScreen(id: id);
+  },
 };

@@ -109,14 +109,22 @@ class _CustomScreenState extends State<CustomScreen> {
       builder: (_) => CustomButtonsBottomSheet(
         id: id,
         topButtonTitle: isDoing ? '완료 탭으로 이동' : '구매하기',
-        onPressedTopButton: () {
-          Map<String, String> newEntry =
-              doingProductItems.where((element) => element['id'] == id).first;
-          completionProductItems.add(newEntry);
-          doingProductItems.remove(newEntry);
-          Navigator.of(context).pop();
-          setState(() {});
-        },
+        onPressedTopButton: isDoing
+            ? () {
+                Map<String, String> newEntry = doingProductItems
+                    .where((element) => element['id'] == id)
+                    .first;
+                completionProductItems.add(newEntry);
+                doingProductItems.remove(newEntry);
+                Navigator.of(context).pop();
+                setState(() {});
+              }
+            : () {
+                Navigator.of(context).pushNamed(
+                  RouteNames.purchase,
+                  arguments: ScreenArguments('id', id),
+                );
+              },
         bottomButtonTitle: '편집하기',
         onPressedBottomButton: () {
           Navigator.of(context).pushNamed(
