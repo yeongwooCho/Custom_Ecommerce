@@ -1,6 +1,9 @@
+import 'package:custom_clothes/common/view/completion_screen.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/screen_arguments.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
 import 'package:custom_clothes/custom/component/printing_add_text_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +68,12 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     ),
                     const SizedBox(height: 36.0),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          RouteNames.completion,
+                          arguments: ScreenArguments('title', '커스텀이 완료되었습니다.'),
+                        );
+                      },
                       child: const Text('편집 완료'),
                     ),
                   ],

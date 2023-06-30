@@ -1,3 +1,4 @@
+import 'package:custom_clothes/common/view/completion_screen.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
 import 'package:custom_clothes/custom/view/printing_screen.dart';
@@ -16,6 +17,9 @@ class RouteNames {
   // initial
   static const String splash = '/';
 
+  // global
+  static const String completion = '/completion';
+
   // login, register, findID, passwordReset
   static const String login = '/login';
   static const String emailLogin = '/email/login';
@@ -33,6 +37,18 @@ class RouteNames {
 }
 
 Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
+  // global
+  RouteNames.completion: (context) {
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
+    String title = '';
+    if (args.title == 'title') {
+      title = args.message;
+    } else {
+      title = '_';
+    }
+    return CompletionScreen(title: title);
+  },
+
   // login, register, findID, passwordReset
   RouteNames.login: (_) => LoginScreen(),
   RouteNames.emailLogin: (_) => EmailLoginScreen(),
@@ -64,5 +80,5 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
       id = '0';
     }
     return PrintingScreen(id: id);
-  }
+  },
 };
