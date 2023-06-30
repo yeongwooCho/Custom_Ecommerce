@@ -113,6 +113,7 @@ class _CustomScreenState extends State<CustomScreen> {
           Map<String, String> newEntry =
               doingProductItems.where((element) => element['id'] == id).first;
           completionProductItems.add(newEntry);
+          doingProductItems.remove(newEntry);
           Navigator.of(context).pop();
           setState(() {});
         },

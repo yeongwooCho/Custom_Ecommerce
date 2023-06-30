@@ -30,7 +30,10 @@ class CustomGuideScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 36.0),
-            Image.asset('asset/image/custom_guide/custom_guide.png'),
+            Image.asset(
+              'asset/image/custom_guide/custom_guide.png',
+              fit: BoxFit.contain,
+            ),
           ],
         ),
       ),
