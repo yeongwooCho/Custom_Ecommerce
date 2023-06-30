@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/component/divide_line.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:flutter/material.dart';
 
@@ -49,8 +50,17 @@ class ProductDetailScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('커스텀 하기'),
+                onPressed: () {
+                  Map<String, String> newEntry = totalProductItems
+                      .where((element) => element['id'] == id)
+                      .first;
+                  doingProductItems.add(newEntry);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteNames.root,
+                    (route) => false,
+                  );
+                },
+                child: const Text('커스텀으로 이동하기'),
               ),
             ),
           ],
@@ -73,10 +83,10 @@ class ProductDetailDescriptionScreen extends StatelessWidget {
     return Column(
       children: List.generate(
           11,
-          (index) =>
-              Padding(
+          (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Image.asset('asset/image/product_detail/${id}_${index}.JPG'),
+                child:
+                    Image.asset('asset/image/product_detail/${id}_$index.JPG'),
               )),
     );
   }

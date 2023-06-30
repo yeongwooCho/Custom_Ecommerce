@@ -77,10 +77,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void onTapItem({required String id}) {
-    // Map<String, String> newEntry =
-    //     totalProductItems.where((element) => element['id'] == id).first;
-    // doingProductItems.add(newEntry);
-    // setState(() {});
     Navigator.of(context).pushNamed(
       RouteNames.productDetail,
       arguments: ScreenArguments('id', id),
