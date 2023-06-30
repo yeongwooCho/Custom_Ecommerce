@@ -3,7 +3,7 @@ import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductListScreen extends StatefulWidget {
-  final List<String> items;
+  final List<Map<String, dynamic>> items;
   final bool isScroll;
   final void Function({required String id})? onTapItem;
 
@@ -39,14 +39,15 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
       itemBuilder: (context, index) => Card(
         elevation: 0,
         child: GestureDetector(
-          onTap: (){
-            widget.onTapItem!(id: '$index');
+          onTap: () {
+            // widget.onTapItem!(id: '${index + 1}');
+            widget.onTapItem!(id: widget.items[index]['id']);
           },
           child: GridTile(
             child: Align(
               alignment: Alignment.topCenter,
               child: Image.asset(
-                'asset/image/product/${widget.items[index]}.png',
+                'asset/image/product/${widget.items[index]['image_name']}',
                 fit: BoxFit.contain,
               ),
             ),
@@ -59,12 +60,12 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      '초록색을 갖고 있는 보풀 가득한 니트',
+                      widget.items[index]['productName'],
                       style: productTitleStyle,
                       maxLines: 2,
                     ),
                     Text(
-                      '₩ 30,000원 ',
+                      '₩ ${widget.items[index]['productPrice']}원',
                       style: productMoneyStyle,
                     ),
                   ],

@@ -3,6 +3,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/variable/data.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -14,20 +15,11 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  List<String> _items = [
-    '4',
-    '3',
-    '4',
-    '4',
-    '1',
-    '2',
-    '1',
-    '2',
-  ];
 
   @override
   Widget build(BuildContext context) {
-    int rowCount = (_items.length ~/ 2) + (_items.length % 2); // 층의 갯수
+    int rowCount = (totalProductItems.length ~/ 2) +
+        (totalProductItems.length % 2); // 층의 갯수
     double itemWidth = (MediaQuery.of(context).size.width - 40) / 2;
     double itemHeight = itemWidth / 16 * 27;
     double gridHeight = (rowCount * itemHeight) + ((rowCount - 1) * 12);
@@ -70,11 +62,9 @@ class _SearchScreenState extends State<SearchScreen> {
               SizedBox(
                 height: gridHeight,
                 child: CustomProductListScreen(
-                  items: _items,
+                  items: totalProductItems,
                   isScroll: false,
-                  onTapItem: ({required String id}) {
-                    print('상품 상세화면');
-                  },
+                  onTapItem: onTapItem,
                 ),
               ),
             ],
@@ -82,6 +72,13 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
     );
+  }
+
+  void onTapItem({required String id}) {
+    Map<String, String> newEntry =
+        totalProductItems.where((element) => element['id'] == id).first;
+    doingProductItems.add(newEntry);
+    setState(() {});
   }
 }
 
@@ -93,17 +90,7 @@ class _Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<_Categories> {
-  String isSelectedItem = '추천';
-  List<String> categorie = [
-    '추천',
-    '상의',
-    '원피스',
-    '바지',
-    '아우터',
-    '스커트',
-    '니트웨어',
-    '홈웨어',
-  ];
+  String isSelectedCategory = categories.first;
 
   @override
   Widget build(BuildContext context) {
@@ -119,10 +106,10 @@ class _CategoriesState extends State<_Categories> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-          children: categorie
+          children: categories
               .map((e) => renderCategory(
                     title: e,
-                    isSelected: e == isSelectedItem,
+                    isSelected: e == isSelectedCategory,
                   ))
               .toList()),
     );
@@ -131,7 +118,7 @@ class _CategoriesState extends State<_Categories> {
   Widget renderCategory({required String title, required bool isSelected}) {
     return GestureDetector(
       onTap: () {
-        isSelectedItem = title;
+        isSelectedCategory = title;
         setState(() {});
       },
       child: Row(
