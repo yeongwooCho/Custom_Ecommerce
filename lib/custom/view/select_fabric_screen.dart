@@ -4,9 +4,9 @@ import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
-import 'package:custom_clothes/custom/component/select_fabric_color_bottom_sheet.dart';
-import 'package:custom_clothes/custom/component/select_fabric_mixing_ratio_bottom_sheet.dart';
-import 'package:custom_clothes/custom/component/select_fabric_type_bottom_sheet.dart';
+import 'package:custom_clothes/custom/view/bottom_sheet/select_fabric_color_bottom_sheet.dart';
+import 'package:custom_clothes/custom/view/bottom_sheet/select_fabric_mixing_ratio_bottom_sheet.dart';
+import 'package:custom_clothes/custom/view/bottom_sheet/select_fabric_type_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class SelectFabricScreen extends StatefulWidget {

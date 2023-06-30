@@ -5,7 +5,7 @@ import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
-import 'package:custom_clothes/custom/component/printing_add_text_bottom_sheet.dart';
+import 'package:custom_clothes/custom/view/bottom_sheet/printing_add_text_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

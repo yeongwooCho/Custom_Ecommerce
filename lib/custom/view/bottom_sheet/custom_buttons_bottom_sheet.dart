@@ -24,8 +24,13 @@ class CustomButtonsBottomSheet extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Container(
-            color: EMPTY_COLOR,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              color: EMPTY_COLOR,
+            ),
           ),
         ),
         Container(
@@ -42,8 +47,8 @@ class CustomButtonsBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-              ElevatedButton(
-                onPressed: () {
+                ElevatedButton(
+                  onPressed: () {
                     if (onPressedTopButton != null) {
                       onPressedTopButton!();
                     }

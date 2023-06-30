@@ -42,8 +42,13 @@ class _SelectFabricColorBottomSheetState
     return Column(
       children: [
         Expanded(
-          child: Container(
-            color: EMPTY_COLOR,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              color: EMPTY_COLOR,
+            ),
           ),
         ),
         Container(
