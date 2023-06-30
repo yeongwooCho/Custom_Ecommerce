@@ -1,6 +1,7 @@
 import 'package:custom_clothes/common/view/completion_screen.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
+import 'package:custom_clothes/custom/view/custom_guide_screen.dart';
 import 'package:custom_clothes/custom/view/printing_screen.dart';
 import 'package:custom_clothes/custom/view/select_fabric_screen.dart';
 import 'package:custom_clothes/search/view/product_detail_screen.dart';
@@ -35,6 +36,7 @@ class RouteNames {
   // custom
   static const String selectFabric = '/select/fabric';
   static const String printing = '/printing';
+  static const String customGuide = '/custom/guide';
 
   // search
   static const String productDetail = '/product/detail';
@@ -65,6 +67,7 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   RouteNames.root: (_) => RootTab(),
 
   // custom
+  RouteNames.customGuide: (_) => CustomGuideScreen(),
   RouteNames.selectFabric: (context) {
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     String id = '';

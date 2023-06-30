@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 
 class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
+  final List<Widget>? action;
+  final Widget? leading;
 
   const DefaultAppBar({
     Key? key,
     required this.title,
+    this.leading,
+    this.action,
   }) : super(key: key);
 
   @override
@@ -25,7 +29,9 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
         widget.title,
         style: bodyBoldTextStyle
       ),
+      leading: widget.leading,
       centerTitle: true,
+      actions: widget.action,
       elevation: 0.3,
       backgroundColor: BACKGROUND_COLOR,
       foregroundColor: DEFAULT_TEXT_COLOR,

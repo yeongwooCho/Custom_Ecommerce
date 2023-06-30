@@ -25,11 +25,7 @@ class _CustomScreenState extends State<CustomScreen> {
     return DefaultLayout(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            isDismissible: true,
-            context: context,
-            builder: (_) => CustomGuideScreen(),
-          );
+          Navigator.of(context).pushNamed(RouteNames.customGuide);
         },
         backgroundColor: PRIMARY_COLOR,
         child: const Icon(

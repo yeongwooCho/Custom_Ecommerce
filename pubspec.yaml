@@ -69,6 +69,7 @@ flutter:
     - asset/image/social_login_button/
     - asset/image/product/
     - asset/image/product_detail/
+    - asset/image/custom_guide/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
