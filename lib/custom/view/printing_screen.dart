@@ -1,6 +1,8 @@
+import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
+import 'package:custom_clothes/custom/component/printing_add_text_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -49,7 +51,9 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     CustomContainerButton(
                       title: '텍스트 추가',
                       isSelected: false,
-                      onTap: () {},
+                      onTap: () {
+                        showAddTextModal(context: context);
+                      },
                     ),
                     const SizedBox(height: 16.0),
                     CustomContainerButton(
@@ -85,5 +89,23 @@ class _PrintingScreenState extends State<PrintingScreen> {
         _image = XFile(pickedFile.path); // 가져온 이미지를 _image에 저장
       });
     }
+  }
+
+  void popBottomSheet() {
+    Navigator.of(context).pop();
+    setState(() {});
+  }
+
+  void showAddTextModal({required BuildContext context}) {
+    showModalBottomSheet(
+      isDismissible: true,
+      isScrollControlled: true,
+      context: context,
+      barrierColor: BARRIER_COLOR,
+      backgroundColor: EMPTY_COLOR,
+      builder: (_) => PrintingAddTextBottomSheet(
+        popBottomSheet: popBottomSheet,
+      ),
+    );
   }
 }

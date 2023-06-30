@@ -1,24 +1,24 @@
+import 'package:custom_clothes/common/component/custom_text_form_field.dart';
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/custom/component/color_container.dart';
 import 'package:flutter/material.dart';
 
-class SelectFabricColorBottomSheet extends StatefulWidget {
-  final void Function({required Color color})? selectColor;
+class PrintingAddTextBottomSheet extends StatefulWidget {
   final void Function()? popBottomSheet;
 
-  const SelectFabricColorBottomSheet({
+  const PrintingAddTextBottomSheet({
     Key? key,
-    required this.selectColor,
     required this.popBottomSheet,
   }) : super(key: key);
 
   @override
-  State<SelectFabricColorBottomSheet> createState() =>
-      _SelectFabricColorBottomSheetState();
+  State<PrintingAddTextBottomSheet> createState() =>
+      _PrintingAddTextBottomSheetState();
 }
 
-class _SelectFabricColorBottomSheetState
-    extends State<SelectFabricColorBottomSheet> {
+class _PrintingAddTextBottomSheetState
+    extends State<PrintingAddTextBottomSheet> {
   List<Color> basicColors = [
     Color(0xFFFFFFFF),
     Color(0xFF888888),
@@ -35,6 +35,7 @@ class _SelectFabricColorBottomSheetState
     Color(0xFF007880),
     Color(0xFFB66505),
   ];
+
   Color selectedColor = Color(0xFFFFFFFF);
 
   @override
@@ -60,6 +61,48 @@ class _SelectFabricColorBottomSheetState
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text(
+                        '텍스트 입력',
+                        style: bodyBoldTextStyle,
+                      ),
+                    ),
+                    SizedBox(width: 16.0),
+                    Expanded(
+                      child: CustomTextFormField(),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24.0),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text(
+                        '텍스트 크기',
+                        style: bodyBoldTextStyle,
+                      ),
+                    ),
+                    SizedBox(width: 16.0),
+                    Expanded(
+                      child: CustomTextFormField(
+                        keyboardType: KeyboardType.number,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: Text(
+                    '텍스트 색상',
+                    style: bodyBoldTextStyle,
+                  ),
+                ),
+                const SizedBox(height: 8.0),
                 Wrap(
                   children: basicColors
                       .map((e) => GestureDetector(
@@ -77,7 +120,7 @@ class _SelectFabricColorBottomSheetState
                 const SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    widget.selectColor!(color: selectedColor);
+                    // widget.selectColor!(color: selectedColor);
                     widget.popBottomSheet!();
                   },
                   child: const Text('원단 색상 지정'),

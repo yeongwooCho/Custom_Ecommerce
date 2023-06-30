@@ -1,16 +1,24 @@
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+enum KeyboardType {
+  number,
+  everything,
+}
 
 class CustomTextFormField extends StatelessWidget {
   final String? title;
   final String? buttonText;
   final GestureTapCallback? onPressed;
+  final KeyboardType keyboardType;
 
   const CustomTextFormField({
     Key? key,
     this.title,
     this.buttonText,
     this.onPressed,
+    this.keyboardType = KeyboardType.everything,
   }) : super(key: key);
 
   @override
@@ -37,6 +45,12 @@ class CustomTextFormField extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  keyboardType: keyboardType == KeyboardType.number
+                      ? TextInputType.number
+                      : TextInputType.multiline,
+                  inputFormatters: keyboardType == KeyboardType.number
+                      ? [FilteringTextInputFormatter.digitsOnly]
+                      : [],
                 ),
               ),
               const SizedBox(width: 12.0),
@@ -53,6 +67,12 @@ class CustomTextFormField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
+            keyboardType: keyboardType == KeyboardType.number
+                ? TextInputType.number
+                : TextInputType.multiline,
+            inputFormatters: keyboardType == KeyboardType.number
+                ? [FilteringTextInputFormatter.digitsOnly]
+                : [],
           ),
       ],
     );
