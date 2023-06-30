@@ -33,12 +33,15 @@ class EmailLoginScreen extends StatelessWidget {
             ),
             CustomTextFormField(title: '이메일'),
             const SizedBox(height: 8.0),
-            CustomTextFormField(title: '비밀번호'),
+            CustomTextFormField(
+              title: '비밀번호',
+              obscureText: true,
+            ),
             const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    RouteNames.root, (route) => false);
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(RouteNames.root, (route) => false);
               },
               child: Text('이메일로 로그인'),
             ),
@@ -82,7 +85,8 @@ class EmailLoginScreen extends StatelessWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(RouteNames.emailPasswordReset);
+                      Navigator.of(context)
+                          .pushNamed(RouteNames.emailPasswordReset);
                     },
                     child: Text(
                       '비밀번호 초기화',

@@ -12,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
   final String? buttonText;
   final GestureTapCallback? onPressed;
   final KeyboardType keyboardType;
+  final ValueChanged<String>? onChanged;
+  final bool obscureText;
 
   const CustomTextFormField({
     Key? key,
@@ -19,6 +21,8 @@ class CustomTextFormField extends StatelessWidget {
     this.buttonText,
     this.onPressed,
     this.keyboardType = KeyboardType.everything,
+    this.onChanged,
+    this.obscureText = false,
   }) : super(key: key);
 
   @override
@@ -39,18 +43,9 @@ class CustomTextFormField extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  keyboardType: keyboardType == KeyboardType.number
-                      ? TextInputType.number
-                      : TextInputType.multiline,
-                  inputFormatters: keyboardType == KeyboardType.number
-                      ? [FilteringTextInputFormatter.digitsOnly]
-                      : [],
+                child: _TextField(
+                  keyboardType: keyboardType,
+                  obscureText: obscureText,
                 ),
               ),
               const SizedBox(width: 12.0),
@@ -61,20 +56,43 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
         if (buttonText == null)
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            keyboardType: keyboardType == KeyboardType.number
-                ? TextInputType.number
-                : TextInputType.multiline,
-            inputFormatters: keyboardType == KeyboardType.number
-                ? [FilteringTextInputFormatter.digitsOnly]
-                : [],
+          _TextField(
+            keyboardType: keyboardType,
+            obscureText: obscureText,
           ),
       ],
+    );
+  }
+}
+
+class _TextField extends StatelessWidget {
+  final bool obscureText;
+  final KeyboardType keyboardType;
+  final ValueChanged<String>? onChanged;
+
+  const _TextField({
+    Key? key,
+    required this.obscureText,
+    required this.keyboardType,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: obscureText,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      keyboardType: keyboardType == KeyboardType.number
+          ? TextInputType.number
+          : TextInputType.multiline,
+      inputFormatters: keyboardType == KeyboardType.number
+          ? [FilteringTextInputFormatter.digitsOnly]
+          : [],
     );
   }
 }
