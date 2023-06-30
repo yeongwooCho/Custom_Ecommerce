@@ -3,6 +3,8 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/screen_arguments.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:flutter/material.dart';
 
@@ -75,10 +77,14 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void onTapItem({required String id}) {
-    Map<String, String> newEntry =
-        totalProductItems.where((element) => element['id'] == id).first;
-    doingProductItems.add(newEntry);
-    setState(() {});
+    // Map<String, String> newEntry =
+    //     totalProductItems.where((element) => element['id'] == id).first;
+    // doingProductItems.add(newEntry);
+    // setState(() {});
+    Navigator.of(context).pushNamed(
+      RouteNames.productDetail,
+      arguments: ScreenArguments('id', id),
+    );
   }
 }
 

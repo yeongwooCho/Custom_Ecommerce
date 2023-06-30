@@ -3,6 +3,7 @@ import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
 import 'package:custom_clothes/custom/view/printing_screen.dart';
 import 'package:custom_clothes/custom/view/select_fabric_screen.dart';
+import 'package:custom_clothes/search/view/product_detail_screen.dart';
 import 'package:custom_clothes/user/view/email_find_screen.dart';
 import 'package:custom_clothes/user/view/email_login_screen.dart';
 import 'package:custom_clothes/user/view/email_password_reset_screen.dart';
@@ -34,6 +35,9 @@ class RouteNames {
   // custom
   static const String selectFabric = '/select/fabric';
   static const String printing = '/printing';
+
+  // search
+  static const String productDetail = '/product/detail';
 }
 
 Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
@@ -81,4 +85,16 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     }
     return PrintingScreen(id: id);
   },
+
+  // search
+  RouteNames.productDetail: (context) {
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
+    String id = '';
+    if (args.title == 'id') {
+      id = args.message;
+    } else {
+      id = '0';
+    }
+    return ProductDetailScreen(id: id);
+  }
 };
