@@ -81,6 +81,8 @@ class _Address extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Text('배송지 정보', style: titleTextStyle,),
+        const SizedBox(height: 16.0),
         Row(
           children: [
             SizedBox(
@@ -98,7 +100,7 @@ class _Address extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12.0),
+        const SizedBox(height: 16.0),
         Row(
           children: [
             SizedBox(
@@ -116,25 +118,31 @@ class _Address extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12.0),
+        const SizedBox(height: 16.0),
         Row(
           children: [
             SizedBox(
               width: 100.0,
               child: Text(
-                '휴대폰',
+                '우편번호',
                 style: bodyMediumTextStyle,
               ),
             ),
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(border: OutlineInputBorder()),
+              child: SizedBox(
+                height: 40.0,
+                child: TextField(
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                ),
               ),
             ),
             SizedBox(width: 8.0),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('우편번호 찾기'),
+            SizedBox(
+              height: 40.0,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text('우편번호 찾기'),
+              ),
             ),
           ],
         ),
@@ -149,8 +157,11 @@ class _Address extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(border: OutlineInputBorder()),
+              child: SizedBox(
+                height: 40.0,
+                child: TextField(
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                ),
               ),
             ),
           ],
@@ -166,8 +177,11 @@ class _Address extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(border: OutlineInputBorder()),
+              child: SizedBox(
+                height: 40.0,
+                child: TextField(
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                ),
               ),
             ),
           ],
@@ -183,8 +197,11 @@ class _Address extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(border: OutlineInputBorder()),
+              child: SizedBox(
+                height: 40.0,
+                child: TextField(
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                ),
               ),
             ),
           ],
