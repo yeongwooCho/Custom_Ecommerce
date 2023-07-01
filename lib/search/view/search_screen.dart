@@ -8,6 +8,33 @@ import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:flutter/material.dart';
 
+enum CategoryLabel {
+  recommend('추천'),
+  top('상의'),
+  onePiece('원피스'),
+  bottom('바지'),
+  outer('아우터'),
+  skirt('스커트'),
+  knitWear('니트웨어'),
+  homeWear('홈웨어');
+
+  const CategoryLabel(this.label);
+
+  final String label;
+}
+
+//
+// List<String> categories = [
+//   '추천',
+//   '상의',
+//   '원피스',
+//   '바지',
+//   '아우터',
+//   '스커트',
+//   '니트웨어',
+//   '홈웨어',
+// ];
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -17,16 +44,28 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
+  CategoryLabel selectedCategoryLabel = CategoryLabel.recommend;
+  List<Map<String, String>> showItems = [];
 
   @override
   Widget build(BuildContext context) {
-    int rowCount = (totalProductItems.length ~/ 2) +
-        (totalProductItems.length % 2); // 층의 갯수
+    // category item count
+    showItems = totalProductItems
+        .where((element) =>
+            element['category']!.contains(selectedCategoryLabel.label))
+        .toList();
+
+    // grid item size
+    int rowCount = (showItems.length ~/ 2) + (showItems.length % 2); // 층의 갯수
     double itemWidth = (MediaQuery.of(context).size.width - 40) / 2;
     double itemHeight = itemWidth / 16 * 27;
-    double gridHeight = (rowCount * itemHeight) + ((rowCount - 1) * 12);
+    double gridHeight = 0.0;
+    if(rowCount != 0) {
+      gridHeight = (rowCount * itemHeight) + ((rowCount - 1) * 12);
+    }
+
     return DefaultLayout(
-      appbar: DefaultAppBar(title: '탐색'),
+      appbar: const DefaultAppBar(title: '탐색'),
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -59,12 +98,18 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               const SizedBox(height: 24.0),
-              _Categories(),
+              _Categories(
+                selectedCategoryLabel: selectedCategoryLabel,
+                onTapCategory: onTapCategory,
+              ),
               const SizedBox(height: 24.0),
               SizedBox(
                 height: gridHeight,
                 child: CustomProductListScreen(
-                  items: totalProductItems,
+                  items: totalProductItems
+                      .where((element) => element['category']!
+                          .contains(selectedCategoryLabel.label))
+                      .toList(),
                   isScroll: false,
                   onTapItem: onTapItem,
                 ),
@@ -82,18 +127,31 @@ class _SearchScreenState extends State<SearchScreen> {
       arguments: ScreenArguments('id', id),
     );
   }
+
+  void onTapCategory({required CategoryLabel selectedCategoryLabel}) {
+    setState(() {
+      this.selectedCategoryLabel = selectedCategoryLabel;
+    });
+  }
 }
 
 class _Categories extends StatefulWidget {
-  const _Categories({Key? key}) : super(key: key);
+  final CategoryLabel selectedCategoryLabel;
+  final void Function({
+    required CategoryLabel selectedCategoryLabel,
+  })? onTapCategory;
+
+  const _Categories({
+    Key? key,
+    required this.selectedCategoryLabel,
+    required this.onTapCategory,
+  }) : super(key: key);
 
   @override
   State<_Categories> createState() => _CategoriesState();
 }
 
 class _CategoriesState extends State<_Categories> {
-  String isSelectedCategory = categories.first;
-
   @override
   Widget build(BuildContext context) {
     // rowCount
@@ -108,20 +166,24 @@ class _CategoriesState extends State<_Categories> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-          children: categories
+          children: CategoryLabel.values
               .map((e) => renderCategory(
-                    title: e,
-                    isSelected: e == isSelectedCategory,
+                    categoryLabel: e,
+                    isSelected: e == widget.selectedCategoryLabel,
                   ))
               .toList()),
     );
   }
 
-  Widget renderCategory({required String title, required bool isSelected}) {
+  Widget renderCategory({
+    required CategoryLabel categoryLabel,
+    required bool isSelected,
+  }) {
     return GestureDetector(
       onTap: () {
-        isSelectedCategory = title;
-        setState(() {});
+        if (widget.onTapCategory != null) {
+          widget.onTapCategory!(selectedCategoryLabel: categoryLabel);
+        }
       },
       child: Row(
         children: [
@@ -140,7 +202,7 @@ class _CategoriesState extends State<_Categories> {
             height: 70.0,
             width: 70.0,
             child: Text(
-              title,
+              categoryLabel.label,
               style: isSelected
                   ? bodyBoldWhiteTextStyle.copyWith(fontSize: 16.0)
                   : bodyMediumTextStyle.copyWith(fontSize: 16.0),
