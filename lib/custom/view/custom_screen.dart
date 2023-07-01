@@ -1,6 +1,7 @@
 import 'package:custom_clothes/common/component/custom_product_list.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_button_style.dart';
+import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
@@ -87,11 +88,33 @@ class _CustomScreenState extends State<CustomScreen> {
             ),
             const SizedBox(height: 24.0),
             Expanded(
-              child: CustomProductListScreen(
-                isScroll: true,
-                items: isDoing ? doingProductItems : completionProductItems,
-                onTapItem: onTapItem,
-              ),
+              child: isDoing
+                  ? doingProductItems.isNotEmpty
+                      ? CustomProductListScreen(
+                          isScroll: true,
+                          items: doingProductItems,
+                          onTapItem: onTapItem,
+                        )
+                      : const Center(
+                          child: Text(
+                            '커스텀 진행중인 상품이\n존재하지 않습니다.',
+                            style: titleTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                  : completionProductItems.isNotEmpty
+                      ? CustomProductListScreen(
+                          isScroll: true,
+                          items: completionProductItems,
+                          onTapItem: onTapItem,
+                        )
+                      : const Center(
+                          child: Text(
+                            '커스텀 완료 된 상품이\n존재하지 않습니다.',
+                            style: titleTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
             )
           ],
         ),
