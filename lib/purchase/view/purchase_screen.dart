@@ -27,26 +27,42 @@ class PurchaseScreen extends StatelessWidget {
           children: [
             Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: _Address(),
             ),
             DivideLine(),
             Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: _ProductInfo(id: id),
             ),
             DivideLine(),
             Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: _SizeAmount(),
+            ),
+            DivideLine(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+              child: _TotalPayment(
+                id: id,
+                amount: 11,
+              ),
             ),
             DivideLine(),
             Container(
               height: 300.0,
             ),
-            DivideLine(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text('결제하기'),
+              ),
+            ),
           ],
         ),
       ),
@@ -185,10 +201,8 @@ class _ProductInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> selectedItem =
-        totalProductItems
-            .where((element) => element['id'] == id)
-            .first;
+    Map<String, dynamic> selectedItem =
+        totalProductItems.where((element) => element['id'] == id).first;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -383,6 +397,102 @@ class _SizeAmountState extends State<_SizeAmount> {
             ),
           ),
         )
+      ],
+    );
+  }
+}
+
+class _TotalPayment extends StatelessWidget {
+  final String id;
+  final int amount;
+
+  const _TotalPayment({
+    Key? key,
+    required this.id,
+    required this.amount,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Map<String, dynamic> selectedItem =
+        totalProductItems.where((element) => element['id'] == id).first;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Text(
+          '최종 결제 금액',
+          style: titleTextStyle,
+        ),
+        const SizedBox(height: 16.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              '상품 금액',
+              style: bodyMediumTextStyle,
+            ),
+            Text(
+              '${selectedItem['productPrice']!} 원',
+              style: bodyMediumTextStyle,
+            ),
+          ],
+        ),
+        const SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              '커스텀 금액',
+              style: bodyMediumTextStyle,
+            ),
+            Text(
+              '${selectedItem['customPrice']!} 원',
+              style: bodyMediumTextStyle,
+            ),
+          ],
+        ),
+        const SizedBox(height: 8.0),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '배송비',
+              style: bodyMediumTextStyle,
+            ),
+            Text(
+              '0 원',
+              style: bodyMediumTextStyle,
+            ),
+          ],
+        ),
+        const SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              '수량',
+              style: bodyMediumTextStyle,
+            ),
+            Text(
+              '$amount 개',
+              style: bodyMediumTextStyle,
+            ),
+          ],
+        ),
+        const SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              '최종 결제 금액',
+              style: bodyBoldTextStyle,
+            ),
+            Text(
+              '${selectedItem['productPrice']! * amount} 원',
+              style: bodyBoldTextStyle,
+            ),
+          ],
+        ),
       ],
     );
   }

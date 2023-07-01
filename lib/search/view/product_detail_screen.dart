@@ -16,7 +16,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> selectedItem =
+    Map<String, dynamic> selectedItem =
         totalProductItems.where((element) => element['id'] == id).first;
 
     return DefaultLayout(
@@ -51,7 +51,7 @@ class ProductDetailScreen extends StatelessWidget {
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  Map<String, String> newEntry = totalProductItems
+                  Map<String, dynamic> newEntry = totalProductItems
                       .where((element) => element['id'] == id)
                       .first;
                   doingProductItems.add(newEntry);

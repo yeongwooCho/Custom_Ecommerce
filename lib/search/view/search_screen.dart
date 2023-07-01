@@ -45,7 +45,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   CategoryLabel selectedCategoryLabel = CategoryLabel.recommend;
-  List<Map<String, String>> showItems = [];
+  List<Map<String, dynamic>> showItems = [];
 
   @override
   Widget build(BuildContext context) {

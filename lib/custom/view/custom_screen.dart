@@ -134,7 +134,7 @@ class _CustomScreenState extends State<CustomScreen> {
         topButtonTitle: isDoing ? '완료 탭으로 이동' : '구매하기',
         onPressedTopButton: isDoing
             ? () {
-                Map<String, String> newEntry = doingProductItems
+                Map<String, dynamic> newEntry = doingProductItems
                     .where((element) => element['id'] == id)
                     .first;
                 completionProductItems.add(newEntry);
