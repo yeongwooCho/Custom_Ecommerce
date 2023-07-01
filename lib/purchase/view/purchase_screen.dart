@@ -5,6 +5,7 @@ import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/custom/component/drop_down_menu.dart';
+import 'package:custom_clothes/user/view/terms_screen.dart';
 import 'package:flutter/material.dart';
 
 class PurchaseScreen extends StatelessWidget {
@@ -52,12 +53,14 @@ class PurchaseScreen extends StatelessWidget {
               ),
             ),
             DivideLine(),
-            Container(
-              height: 300.0,
-            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+              child: PurchaseTerms(),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 24.0),
               child: ElevatedButton(
                 onPressed: () {},
                 child: const Text('결제하기'),
@@ -493,6 +496,118 @@ class _TotalPayment extends StatelessWidget {
             ),
           ],
         ),
+      ],
+    );
+  }
+}
+
+class PurchaseTerms extends StatefulWidget {
+  const PurchaseTerms({Key? key}) : super(key: key);
+
+  @override
+  State<PurchaseTerms> createState() => _PurchaseTermsState();
+}
+
+class _PurchaseTermsState extends State<PurchaseTerms> {
+  bool isAgreePurchase = true;
+  bool isAgreeCancellation = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: 8.0),
+        GestureDetector(
+          onTap: () {
+            isAgreePurchase = !isAgreePurchase;
+            setState(() {});
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: isAgreePurchase ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.check,
+                        color: isAgreePurchase
+                            ? WHITE_TEXT_COLOR
+                            : DEFAULT_TEXT_COLOR,
+                        size: 16.0,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(
+                    '주문 내용 확인 및 결제 내용 동의(필수)',
+                    style: bodyBoldTextStyle.copyWith(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              const Text(
+                '보기',
+                style: subBodyTextStyle,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        GestureDetector(
+          onTap: () {
+            isAgreeCancellation = !isAgreeCancellation;
+            setState(() {});
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: isAgreeCancellation
+                          ? PRIMARY_COLOR
+                          : LIGHT_GREY_COLOR,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.check,
+                        color: isAgreeCancellation
+                            ? WHITE_TEXT_COLOR
+                            : DEFAULT_TEXT_COLOR,
+                        size: 16.0,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(
+                    '취소 / 교환 / 반품 정책 동의(필수)',
+                    style: bodyBoldTextStyle.copyWith(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              // const Icon(
+              //   Icons.chevron_right,
+              //   color: DEFAULT_TEXT_COLOR,
+              // )
+              const Text(
+                '보기',
+                style: subBodyTextStyle,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8.0),
       ],
     );
   }
