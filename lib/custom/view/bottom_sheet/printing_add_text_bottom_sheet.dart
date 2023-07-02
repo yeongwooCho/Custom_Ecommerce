@@ -152,6 +152,7 @@ class _PrintingAddTextBottomSheetState
                     widget.addText!(
                         title: inputText,
                         textStyle: TextStyle(
+                          decoration: TextDecoration.none,
                           color: selectedColor,
                           fontSize: inputTextSizeToInt <= 200
                               ? inputTextSizeToInt.toDouble()
