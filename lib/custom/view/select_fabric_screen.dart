@@ -94,12 +94,12 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                     CustomContainerButton(
                       title: '원단 색상 지정',
                       isSelected: selectedColor != null,
-                      onTap: () {
-                        (selectedItems.isEmpty ||
-                                selectedMixingRatioValues.isEmpty)
-                            ? null
-                            : showColorModal(context: context);
-                      },
+                      onTap: selectedItems.isEmpty ||
+                              selectedMixingRatioValues.isEmpty
+                          ? null
+                          : () {
+                              showColorModal(context: context);
+                            },
                     ),
                     const SizedBox(height: 36.0),
                     ElevatedButton(
