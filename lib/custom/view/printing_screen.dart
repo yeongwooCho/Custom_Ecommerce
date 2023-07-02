@@ -26,6 +26,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
   XFile? _image;
 
   // text drag
+  String addedText = '';
+  TextStyle addedTextStyle = const TextStyle();
   OverlayEntry? overlayEntry;
   double overlayWidth = 0.0;
   double overlayHeight = 0.0;
@@ -33,119 +35,12 @@ class _PrintingScreenState extends State<PrintingScreen> {
   double initDx = 0.0;
   double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
   bool isMoving = false; // TODO: start에서 border가 생기지 않음
-
   GlobalKey textKey = GlobalKey();
-
-  Size? _getSize(GlobalKey key) {
-    if (key.currentContext != null) {
-      final RenderBox renderBox =
-          key.currentContext!.findRenderObject() as RenderBox;
-      Size size = renderBox.size;
-      return size;
-    }
-    return null;
-  }
-
-  _clickShow() async {
-    if (overlayEntry != null) {
-      return;
-    }
-    overlayEntry = _showOverlay();
-    Overlay.of(context).insert(overlayEntry!);
-
-    await Future.delayed(const Duration(seconds: 1));
-    if (_getSize(textKey) != null) {
-      print('가져옴');
-      overlayWidth = _getSize(textKey)!.width;
-      overlayHeight = _getSize(textKey)!.height;
-    }
-  }
-
-  _removeOverlay() {
-    if (overlayEntry != null) {
-      overlayEntry!.remove();
-      initOverlayProperty();
-    }
-  }
-
-  void initOverlayProperty() {
-    overlayEntry = null; // 위에 존재하는 overlay 된 Widget
-    overlayWidth = 100; // 위에 존재하는 overlay 된 Widget의 Width (지정하겠다는 의미.)
-    overlayHeight = 50;
-    offset = Offset(initDx, initDy); // 위치, default (0, 0), 폰에 존재하는 위치 좌표 좌측 상단
-  }
-
-  OverlayEntry _showOverlay() {
-    OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) {
-        double dx = initDx;
-        double dy = initDy;
-        double maxDx = MediaQuery.of(context).size.width;
-        double maxDy = MediaQuery.of(context).size.width +
-            24.0 +
-            DefaultAppBar.defaultAppBarHeight;
-
-        if ((offset.dx > 0) && ((offset.dx + overlayWidth) < maxDx)) {
-          // 내가 생각하는 범위 안에 있을때는 이동한 위치는 그대로 적용해라.
-          dx = offset.dx;
-        } else if ((offset.dx + overlayWidth) >= maxDx) {
-          // width 를 넘어가게 되면 widget 좌측 상단을 overlayWidth 만큼 빼서 거기로 이동해라.
-          dx = maxDx - overlayWidth;
-        } else {
-          // 그외 모든 경우는 x 축 위치를 0으로 지정해라.
-          dx = 0;
-        }
-
-        if ((offset.dy > initDy) && ((offset.dy + overlayHeight) < maxDy)) {
-          dy = offset.dy;
-        } else if ((offset.dy + overlayHeight) >= maxDy) {
-          dy = maxDy - overlayHeight;
-        } else {
-          dy = initDy;
-        }
-
-        return Positioned(
-          top: dy,
-          left: dx,
-          child: Draggable(
-            feedback: _contentBody(),
-            child: _contentBody(),
-            childWhenDragging: Container(),
-            onDraggableCanceled: (Velocity velocity, Offset offset) {
-              setState(() {
-                this.offset = offset;
-              });
-            },
-          ),
-        );
-      },
-    );
-    return overlayEntry;
-  }
-
-  Widget _contentBody() {
-    return SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-          border: isMoving
-              ? Border.all(
-                  width: 1.0,
-                  color: DEFAULT_TEXT_COLOR,
-                )
-              : null,
-        ),
-        child: Text(
-          key: textKey,
-          'HIHI',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-    );
-  }
 
   @override
   void initState() {
     super.initState();
+
     initOverlayProperty();
   }
 
@@ -156,6 +51,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
         title: '프린팅',
       ),
       child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 24.0),
           child: Column(
@@ -174,8 +70,9 @@ class _PrintingScreenState extends State<PrintingScreen> {
                       title: '텍스트 추가',
                       isSelected: false,
                       onTap: () {
-                        // showAddTextModal(context: context);
-                        _clickShow();
+                        initOverlayProperty();
+                        showAddTextModal(context: context);
+                        // _clickShow();
                       },
                     ),
                     const SizedBox(height: 16.0),
@@ -184,7 +81,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
                       isSelected: false,
                       onTap: () {
                         // getImage();
-                        _removeOverlay();
+                        // _removeOverlay();
                       },
                     ),
                     const SizedBox(height: 36.0),
@@ -225,7 +122,9 @@ class _PrintingScreenState extends State<PrintingScreen> {
     setState(() {});
   }
 
-  void showAddTextModal({required BuildContext context}) {
+  void showAddTextModal({
+    required BuildContext context,
+  }) {
     showModalBottomSheet(
       isDismissible: true,
       isScrollControlled: true,
@@ -234,7 +133,125 @@ class _PrintingScreenState extends State<PrintingScreen> {
       backgroundColor: EMPTY_COLOR,
       builder: (_) => PrintingAddTextBottomSheet(
         popBottomSheet: popBottomSheet,
+        addText: addText,
       ),
     );
+  }
+
+  Size? _getSize(GlobalKey key) {
+    if (key.currentContext != null) {
+      final RenderBox renderBox =
+          key.currentContext!.findRenderObject() as RenderBox;
+      Size size = renderBox.size;
+      return size;
+    }
+    return null;
+  }
+
+  _clickShow() async {
+    if (overlayEntry != null) {
+      return;
+    }
+    overlayEntry = _showOverlay();
+    Overlay.of(context).insert(overlayEntry!);
+
+    await Future.delayed(const Duration(seconds: 1));
+    if (_getSize(textKey) != null) {
+      print('가져옴');
+      overlayWidth = _getSize(textKey)!.width;
+      overlayHeight = _getSize(textKey)!.height;
+    }
+  }
+
+  void initOverlayProperty() {
+    if(overlayEntry != null) {
+      overlayEntry!.remove();
+    }
+    overlayEntry = null; // 위에 존재하는 overlay 된 Widget
+    overlayWidth = 100; // 위에 존재하는 overlay 된 Widget의 Width (지정하겠다는 의미.)
+    overlayHeight = 50;
+    offset = Offset(initDx, initDy); // 위치, default (0, 0), 폰에 존재하는 위치 좌표 좌측 상단
+  }
+
+  OverlayEntry _showOverlay() {
+    OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) {
+        double dx = initDx;
+        double dy = initDy;
+        double maxDx = MediaQuery.of(context).size.width;
+        double maxDy = MediaQuery.of(context).size.width +
+            24.0 +
+            DefaultAppBar.defaultAppBarHeight;
+
+        if ((offset.dx > 0) && ((offset.dx + overlayWidth) < maxDx)) {
+          // 내가 생각하는 범위 안에 있을때는 이동한 위치는 그대로 적용해라.
+          dx = offset.dx;
+        } else if ((offset.dx + overlayWidth) >= maxDx) {
+          // width 를 넘어가게 되면 widget 좌측 상단을 overlayWidth 만큼 빼서 거기로 이동해라.
+          dx = maxDx - overlayWidth;
+        } else {
+          // 그외 모든 경우는 x 축 위치를 0으로 지정해라.
+          dx = 0;
+        }
+
+        if ((offset.dy > initDy) && ((offset.dy + overlayHeight) < maxDy)) {
+          dy = offset.dy;
+        } else if ((offset.dy + overlayHeight) >= maxDy) {
+          dy = maxDy - overlayHeight;
+        } else {
+          dy = initDy;
+        }
+
+        // 위에 올라오는 overlay widget 전체
+        return Positioned(
+          top: dy,
+          left: dx,
+          child: Draggable(
+            // 드래그 되는 동안 터치 포인트 위치에 그려질 위젯
+            feedback: _contentBody(isMoving: true),
+            // 드래그 할 대상이 되는 위젯
+            child: _contentBody(isMoving: false),
+            // 드래그 중 원래 자리에 둘 위젯
+            childWhenDragging: Container(),
+            onDraggableCanceled: (Velocity velocity, Offset offset) {
+              setState(() {
+                this.offset = offset;
+              });
+            },
+            //data 는 드래그가 완료되어 DragTarget 에 드롭될 때 전달할 데이터
+          ),
+        );
+      },
+    );
+    return overlayEntry;
+  }
+
+  Widget _contentBody({required bool isMoving}) {
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          border: isMoving
+              ? Border.all(
+                  width: 1.0,
+                  color: DEFAULT_TEXT_COLOR,
+                )
+              : null,
+        ),
+        child: Text(
+          key: textKey,
+          addedText,
+          style: addedTextStyle,
+        ),
+      ),
+    );
+  }
+
+  void addText({
+    required String title,
+    required TextStyle textStyle,
+  }) {
+    addedText = title;
+    addedTextStyle = textStyle;
+    _clickShow();
   }
 }

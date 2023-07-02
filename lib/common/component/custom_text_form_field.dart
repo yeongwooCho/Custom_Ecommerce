@@ -59,6 +59,7 @@ class CustomTextFormField extends StatelessWidget {
           _TextField(
             keyboardType: keyboardType,
             obscureText: obscureText,
+            onChanged: onChanged,
           ),
       ],
     );

@@ -6,10 +6,15 @@ import 'package:flutter/material.dart';
 
 class PrintingAddTextBottomSheet extends StatefulWidget {
   final void Function()? popBottomSheet;
+  final void Function({
+    required String title,
+    required TextStyle textStyle,
+  })? addText;
 
   const PrintingAddTextBottomSheet({
     Key? key,
     required this.popBottomSheet,
+    required this.addText,
   }) : super(key: key);
 
   @override
@@ -37,6 +42,19 @@ class _PrintingAddTextBottomSheetState
   ];
 
   Color selectedColor = Color(0xFFFFFFFF);
+
+  String inputText = '';
+  String inputTextSize = '';
+
+  void onChangedText(String val) {
+    print(val);
+    inputText = val;
+  }
+
+  void onChangedTextSize(String val) {
+    print(val);
+    inputTextSize = val;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +95,9 @@ class _PrintingAddTextBottomSheetState
                     ),
                     SizedBox(width: 16.0),
                     Expanded(
-                      child: CustomTextFormField(),
+                      child: CustomTextFormField(
+                        onChanged: onChangedText,
+                      ),
                     ),
                   ],
                 ),
@@ -95,6 +115,7 @@ class _PrintingAddTextBottomSheetState
                     Expanded(
                       child: CustomTextFormField(
                         keyboardType: KeyboardType.number,
+                        onChanged: onChangedTextSize,
                       ),
                     ),
                   ],
@@ -126,6 +147,16 @@ class _PrintingAddTextBottomSheetState
                 ElevatedButton(
                   onPressed: () {
                     // widget.selectColor!(color: selectedColor);
+                    int inputTextSizeToInt =
+                        int.parse(inputTextSize.trim()) ?? 0;
+                    widget.addText!(
+                        title: inputText,
+                        textStyle: TextStyle(
+                          color: selectedColor,
+                          fontSize: inputTextSizeToInt <= 200
+                              ? inputTextSizeToInt.toDouble()
+                              : 200.0,
+                        ));
                     widget.popBottomSheet!();
                   },
                   child: const Text('원단 색상 지정'),
