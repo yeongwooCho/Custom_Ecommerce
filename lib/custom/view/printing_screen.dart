@@ -34,12 +34,31 @@ class _PrintingScreenState extends State<PrintingScreen> {
   double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
   bool isMoving = false; // TODO: start에서 border가 생기지 않음
 
-  _clickShow() {
+  GlobalKey textKey = GlobalKey();
+
+  Size? _getSize(GlobalKey key) {
+    if (key.currentContext != null) {
+      final RenderBox renderBox =
+          key.currentContext!.findRenderObject() as RenderBox;
+      Size size = renderBox.size;
+      return size;
+    }
+    return null;
+  }
+
+  _clickShow() async {
     if (overlayEntry != null) {
       return;
     }
     overlayEntry = _showOverlay();
     Overlay.of(context).insert(overlayEntry!);
+
+    await Future.delayed(const Duration(seconds: 1));
+    if (_getSize(textKey) != null) {
+      print('가져옴');
+      overlayWidth = _getSize(textKey)!.width;
+      overlayHeight = _getSize(textKey)!.height;
+    }
   }
 
   _removeOverlay() {
@@ -116,6 +135,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
               : null,
         ),
         child: Text(
+          key: textKey,
           'HIHI',
           style: TextStyle(color: Colors.black),
         ),
