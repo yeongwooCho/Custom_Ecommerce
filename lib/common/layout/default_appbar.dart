@@ -3,6 +3,7 @@ import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:flutter/material.dart';
 
 class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {
+  static const defaultAppBarHeight = 60.0;
   final String title;
   final List<Widget>? action;
   final Widget? leading;
@@ -18,7 +19,7 @@ class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<DefaultAppBar> createState() => _DefaultAppBarState();
 
   @override
-  Size get preferredSize => const Size(double.infinity, 60);
+  Size get preferredSize => const Size(double.infinity, DefaultAppBar.defaultAppBarHeight);
 }
 
 class _DefaultAppBarState extends State<DefaultAppBar> {

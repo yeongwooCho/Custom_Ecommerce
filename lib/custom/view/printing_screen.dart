@@ -25,9 +25,108 @@ class _PrintingScreenState extends State<PrintingScreen> {
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
 
+  // text drag
+  OverlayEntry? overlayEntry;
+  double overlayWidth = 0.0;
+  double overlayHeight = 0.0;
+  Offset offset = Offset.zero;
+  double initDx = 0.0;
+  double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
+  bool isMoving = false; // TODO: start에서 border가 생기지 않음
+
+  _clickShow() {
+    if (overlayEntry != null) {
+      return;
+    }
+    overlayEntry = _showOverlay();
+    Overlay.of(context).insert(overlayEntry!);
+  }
+
+  _removeOverlay() {
+    if (overlayEntry != null) {
+      overlayEntry!.remove();
+      initOverlayProperty();
+    }
+  }
+
+  void initOverlayProperty() {
+    overlayEntry = null; // 위에 존재하는 overlay 된 Widget
+    overlayWidth = 100; // 위에 존재하는 overlay 된 Widget의 Width (지정하겠다는 의미.)
+    overlayHeight = 50;
+    offset = Offset(initDx, initDy); // 위치, default (0, 0), 폰에 존재하는 위치 좌표 좌측 상단
+  }
+
+  OverlayEntry _showOverlay() {
+    OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) {
+        double dx = initDx;
+        double dy = initDy;
+        double maxDx = MediaQuery.of(context).size.width;
+        double maxDy = MediaQuery.of(context).size.width +
+            24.0 +
+            DefaultAppBar.defaultAppBarHeight;
+
+        if ((offset.dx > 0) && ((offset.dx + overlayWidth) < maxDx)) {
+          // 내가 생각하는 범위 안에 있을때는 이동한 위치는 그대로 적용해라.
+          dx = offset.dx;
+        } else if ((offset.dx + overlayWidth) >= maxDx) {
+          // width 를 넘어가게 되면 widget 좌측 상단을 overlayWidth 만큼 빼서 거기로 이동해라.
+          dx = maxDx - overlayWidth;
+        } else {
+          // 그외 모든 경우는 x 축 위치를 0으로 지정해라.
+          dx = 0;
+        }
+
+        if ((offset.dy > initDy) && ((offset.dy + overlayHeight) < maxDy)) {
+          dy = offset.dy;
+        } else if ((offset.dy + overlayHeight) >= maxDy) {
+          dy = maxDy - overlayHeight;
+        } else {
+          dy = initDy;
+        }
+
+        return Positioned(
+          top: dy,
+          left: dx,
+          child: Draggable(
+            feedback: _contentBody(),
+            child: _contentBody(),
+            childWhenDragging: Container(),
+            onDraggableCanceled: (Velocity velocity, Offset offset) {
+              setState(() {
+                this.offset = offset;
+              });
+            },
+          ),
+        );
+      },
+    );
+    return overlayEntry;
+  }
+
+  Widget _contentBody() {
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          border: isMoving
+              ? Border.all(
+                  width: 1.0,
+                  color: DEFAULT_TEXT_COLOR,
+                )
+              : null,
+        ),
+        child: Text(
+          'HIHI',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    initOverlayProperty();
   }
 
   @override
@@ -55,7 +154,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
                       title: '텍스트 추가',
                       isSelected: false,
                       onTap: () {
-                        showAddTextModal(context: context);
+                        // showAddTextModal(context: context);
+                        _clickShow();
                       },
                     ),
                     const SizedBox(height: 16.0),
@@ -63,7 +163,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
                       title: '이미지 추가',
                       isSelected: false,
                       onTap: () {
-                        getImage();
+                        // getImage();
+                        _removeOverlay();
                       },
                     ),
                     const SizedBox(height: 36.0),
