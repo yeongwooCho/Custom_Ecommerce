@@ -3,9 +3,10 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/screen_arguments.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/custom/component/drop_down_menu.dart';
-import 'package:custom_clothes/user/view/terms_screen.dart';
 import 'package:flutter/material.dart';
 
 class PurchaseScreen extends StatelessWidget {
@@ -62,7 +63,12 @@ class PurchaseScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 24.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    RouteNames.completion,
+                    arguments: ScreenArguments('title', '결제가 완료되었습니다!'),
+                  );
+                },
                 child: const Text('결제하기'),
               ),
             ),
