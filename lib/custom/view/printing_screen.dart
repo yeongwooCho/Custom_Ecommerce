@@ -41,10 +41,12 @@ class _PrintingScreenState extends State<PrintingScreen> {
   double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
   bool isMoving = false; // TODO: start에서 border가 생기지 않음
   GlobalKey textKey = GlobalKey();
+  bool isCompletionText = false;
 
   // image sticker
   Set<StickerModel> stickers = {};
   String? selectedId;
+  bool isCompletionImage = false;
 
   @override
   void initState() {
@@ -77,16 +79,21 @@ class _PrintingScreenState extends State<PrintingScreen> {
                           children: [
                             ...stickers.map(
                               // 기본 위치는 중앙
-                              (sticker) => Center(
-                                child: Sticker(
-                                  key: ObjectKey(sticker.id),
-                                  onTransform: () {
-                                    onTransform(sticker.id);
-                                  },
-                                  imgPath: sticker.imagePath,
-                                  isSelected: selectedId == sticker.id,
-                                ),
-                              ),
+                              (sticker) {
+                                setState(() {
+                                  isCompletionImage = true;
+                                });
+                                return Center(
+                                  child: Sticker(
+                                    key: ObjectKey(sticker.id),
+                                    onTransform: () {
+                                      onTransform(sticker.id);
+                                    },
+                                    imgPath: sticker.imagePath,
+                                    isSelected: selectedId == sticker.id,
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -104,7 +111,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     const SizedBox(height: 24.0),
                     CustomContainerButton(
                       title: '텍스트 추가',
-                      isSelected: false,
+                      isSelected: isCompletionText,
                       onTap: () {
                         initOverlayProperty();
                         showAddTextModal(context: context);
@@ -114,7 +121,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     const SizedBox(height: 16.0),
                     CustomContainerButton(
                       title: '이미지 추가',
-                      isSelected: false,
+                      isSelected: isCompletionImage,
                       onTap: () async {
                         await getImage();
                         // _removeOverlay();
@@ -197,7 +204,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
     return null;
   }
 
-  _clickShow() async {
+  Future<void> _clickShow() async {
     if (overlayEntry != null) {
       return;
     }
@@ -298,9 +305,12 @@ class _PrintingScreenState extends State<PrintingScreen> {
   void addText({
     required String title,
     required TextStyle textStyle,
-  }) {
+  }) async {
     addedText = title;
     addedTextStyle = textStyle;
-    _clickShow();
+    isCompletionText = true;
+    setState(() {});
+    await _clickShow();
+
   }
 }
