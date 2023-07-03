@@ -130,6 +130,12 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     const SizedBox(height: 36.0),
                     ElevatedButton(
                       onPressed: () {
+                        // TODO: 좌표에 의한 이미지 저장 후 completionItem 에 추가
+
+                        // text 제거
+                        initOverlayProperty();
+
+                        // 완료 페이지로 이동
                         Navigator.of(context).pushNamed(
                           RouteNames.completion,
                           arguments: ScreenArguments('title', '커스텀이 완료되었습니다.'),
@@ -311,6 +317,5 @@ class _PrintingScreenState extends State<PrintingScreen> {
     isCompletionText = true;
     setState(() {});
     await _clickShow();
-
   }
 }
