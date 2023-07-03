@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:custom_clothes/common/view/completion_screen.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
@@ -5,9 +7,12 @@ import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
+import 'package:custom_clothes/custom/component/sticker.dart';
+import 'package:custom_clothes/custom/model/sticker_model.dart';
 import 'package:custom_clothes/custom/view/bottom_sheet/printing_add_text_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class PrintingScreen extends StatefulWidget {
   final String id;
@@ -23,7 +28,7 @@ class PrintingScreen extends StatefulWidget {
 
 class _PrintingScreenState extends State<PrintingScreen> {
   final ImagePicker _picker = ImagePicker();
-  XFile? _image;
+  XFile? image;
 
   // text drag
   String addedText = '';
@@ -36,6 +41,10 @@ class _PrintingScreenState extends State<PrintingScreen> {
   double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
   bool isMoving = false; // TODO: start에서 border가 생기지 않음
   GlobalKey textKey = GlobalKey();
+
+  // image sticker
+  Set<StickerModel> stickers = {};
+  String? selectedId;
 
   @override
   void initState() {
@@ -57,7 +66,34 @@ class _PrintingScreenState extends State<PrintingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset('asset/image/product/${widget.id}.png'),
+              Stack(
+                children: [
+                  Image.asset('asset/image/product/${widget.id}.png'),
+                  if (image != null)
+                    Positioned.fill(
+                      child: InteractiveViewer(
+                        child: Stack(
+                          fit: StackFit.expand, // 크기 최대로 늘리기
+                          children: [
+                            ...stickers.map(
+                              // 기본 위치는 중앙
+                              (sticker) => Center(
+                                child: Sticker(
+                                  key: ObjectKey(sticker.id),
+                                  onTransform: () {
+                                    onTransform(sticker.id);
+                                  },
+                                  imgPath: sticker.imagePath,
+                                  isSelected: selectedId == sticker.id,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
@@ -79,8 +115,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     CustomContainerButton(
                       title: '이미지 추가',
                       isSelected: false,
-                      onTap: () {
-                        // getImage();
+                      onTap: () async {
+                        await getImage();
                         // _removeOverlay();
                       },
                     ),
@@ -104,7 +140,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
     );
   }
 
-  void getImage() async {
+  Future<void> getImage() async {
     // pickedFile에 ImagePicker로 가져온 이미지가 담긴다.
     final XFile? pickedFile =
         await _picker.pickImage(source: ImageSource.gallery);
@@ -112,9 +148,22 @@ class _PrintingScreenState extends State<PrintingScreen> {
     // 이미지를 정상적으로 가져왔다면 텍스트 인식 실행
     if (pickedFile != null) {
       setState(() {
-        _image = XFile(pickedFile.path); // 가져온 이미지를 _image에 저장
+        image = XFile(pickedFile.path); // 가져온 이미지를 _image에 저장
+        stickers = {
+          ...stickers,
+          StickerModel(
+            id: Uuid().v4(), // 스티커의 고유 ID
+            imagePath: image!.path,
+          )
+        };
       });
     }
+  }
+
+  void onTransform(String id) {
+    setState(() {
+      selectedId = id;
+    });
   }
 
   void popBottomSheet() {
@@ -164,7 +213,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
   }
 
   void initOverlayProperty() {
-    if(overlayEntry != null) {
+    if (overlayEntry != null) {
       overlayEntry!.remove();
     }
     overlayEntry = null; // 위에 존재하는 overlay 된 Widget
