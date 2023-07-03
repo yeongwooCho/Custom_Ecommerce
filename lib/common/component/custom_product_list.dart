@@ -1,5 +1,6 @@
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
+import 'package:custom_clothes/common/variable/format.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductListScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
                       maxLines: 2,
                     ),
                     Text(
-                      '₩ ${widget.items[index]['productPrice']}원',
+                      '${numberFormat.format(widget.items[index]['productPrice'])} 원',
                       style: productMoneyStyle,
                     ),
                   ],

@@ -4,6 +4,7 @@ import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
+import 'package:custom_clothes/common/variable/format.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -38,7 +39,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    '₩${selectedItem['productPrice']!}원',
+                    '${numberFormat.format(selectedItem['productPrice'])} 원',
                     style: productMoneyStyle.copyWith(fontSize: 24.0),
                   ),
                 ],

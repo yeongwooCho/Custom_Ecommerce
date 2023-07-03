@@ -6,6 +6,7 @@ import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
+import 'package:custom_clothes/common/variable/format.dart';
 import 'package:custom_clothes/custom/component/drop_down_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +88,10 @@ class _Address extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('배송지 정보', style: titleTextStyle,),
+        Text(
+          '배송지 정보',
+          style: titleTextStyle,
+        ),
         const SizedBox(height: 16.0),
         Row(
           children: [
@@ -458,7 +462,7 @@ class _TotalPayment extends StatelessWidget {
               style: bodyMediumTextStyle,
             ),
             Text(
-              '${selectedItem['productPrice']!} 원',
+              '${numberFormat.format(selectedItem['productPrice'])} 원',
               style: bodyMediumTextStyle,
             ),
           ],
@@ -472,7 +476,7 @@ class _TotalPayment extends StatelessWidget {
               style: bodyMediumTextStyle,
             ),
             Text(
-              '${selectedItem['customPrice']!} 원',
+              '${numberFormat.format(selectedItem['customPrice'])} 원',
               style: bodyMediumTextStyle,
             ),
           ],
@@ -514,7 +518,7 @@ class _TotalPayment extends StatelessWidget {
               style: bodyBoldTextStyle,
             ),
             Text(
-              '${selectedItem['productPrice']! * amount} 원',
+              '${numberFormat.format(selectedItem['customPrice'] * amount)} 원',
               style: bodyBoldTextStyle,
             ),
           ],
