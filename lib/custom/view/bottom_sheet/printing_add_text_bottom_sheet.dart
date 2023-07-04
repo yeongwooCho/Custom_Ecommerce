@@ -47,12 +47,10 @@ class _PrintingAddTextBottomSheetState
   String inputTextSize = '';
 
   void onChangedText(String val) {
-    print(val);
     inputText = val;
   }
 
   void onChangedTextSize(String val) {
-    print(val);
     inputTextSize = val;
   }
 
@@ -148,10 +146,15 @@ class _PrintingAddTextBottomSheetState
                 const SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    // widget.selectColor!(color: selectedColor);
-                    int inputTextSizeToInt =
-                        int.parse(inputTextSize.trim()) ?? 0;
-                    widget.addText!(
+                    int inputTextSizeToInt = 0;
+                    try {
+                      inputTextSizeToInt = int.parse(inputTextSize.trim());
+                    } catch (error) {
+                      inputTextSizeToInt = 0;
+                    }
+
+                    if (widget.addText != null && inputTextSizeToInt != 0) {
+                      widget.addText!(
                         title: inputText,
                         textStyle: TextStyle(
                           decoration: TextDecoration.none,
@@ -159,8 +162,12 @@ class _PrintingAddTextBottomSheetState
                           fontSize: inputTextSizeToInt <= 200
                               ? inputTextSizeToInt.toDouble()
                               : 200.0,
-                        ));
-                    widget.popBottomSheet!();
+                        ),
+                      );
+                    }
+                    if (widget.popBottomSheet != null) {
+                      widget.popBottomSheet!();
+                    }
                   },
                   child: const Text('원단 색상 지정'),
                 ),
