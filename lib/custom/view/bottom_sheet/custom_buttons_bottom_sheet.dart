@@ -34,9 +34,11 @@ class CustomButtonsBottomSheet extends StatelessWidget {
           ),
         ),
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: BACKGROUND_COLOR,
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16.0),
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
