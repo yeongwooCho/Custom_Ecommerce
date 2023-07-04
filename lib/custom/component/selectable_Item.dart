@@ -1,6 +1,5 @@
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
-import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 
 class SelectableItem extends StatelessWidget {

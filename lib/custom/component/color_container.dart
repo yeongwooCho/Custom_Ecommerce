@@ -1,4 +1,3 @@
-import 'package:custom_clothes/common/const/colors.dart';
 import 'package:flutter/material.dart';
 
 class ColorContainer extends StatelessWidget {

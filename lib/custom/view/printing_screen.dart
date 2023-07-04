@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:custom_clothes/common/view/completion_screen.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
@@ -39,7 +36,6 @@ class _PrintingScreenState extends State<PrintingScreen> {
   Offset offset = Offset.zero;
   double initDx = 0.0;
   double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
-  bool isMoving = false; // TODO: start에서 border가 생기지 않음
   GlobalKey textKey = GlobalKey();
   bool isCompletionText = false;
 

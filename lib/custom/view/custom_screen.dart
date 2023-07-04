@@ -9,7 +9,6 @@ import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/custom/view/bottom_sheet/custom_buttons_bottom_sheet.dart';
-import 'package:custom_clothes/custom/view/custom_guide_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomScreen extends StatefulWidget {

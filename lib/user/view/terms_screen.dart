@@ -4,7 +4,6 @@ import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class TermsScreen extends StatefulWidget {
   const TermsScreen({Key? key}) : super(key: key);

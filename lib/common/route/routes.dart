@@ -15,7 +15,6 @@ import 'package:custom_clothes/user/view/terms_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// TODO: arguments에 대한 정의 필요
 class RouteNames {
   // initial
   static const String splash = '/';
