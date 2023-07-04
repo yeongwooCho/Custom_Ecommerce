@@ -19,12 +19,22 @@ class ColorContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           border: Border.all(
-              width: isSelected ? 5.0 : 1.0, color: DEFAULT_TEXT_COLOR),
+            width: isSelected ? 8.0 : 1.0,
+            color: Colors.black,
+            strokeAlign: BorderSide.strokeAlignOutside,
+          ),
           borderRadius: BorderRadius.circular(8.0),
         ),
         height: 50.0,
         width: 50.0,
-        child: isSelected ? const Icon(Icons.check) : null,
+        child: isSelected
+            ? color == Colors.black
+                ? const Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  )
+                : const Icon(Icons.check)
+            : null,
       ),
     );
   }
