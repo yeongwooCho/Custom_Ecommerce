@@ -43,6 +43,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
   Set<StickerModel> stickers = {};
   String? selectedId;
   bool isCompletionImage = false;
+  GlobalKey mainImageKey = GlobalKey();
+  double imageMaxHeight = 0.0;
 
   @override
   void initState() {
@@ -53,6 +55,12 @@ class _PrintingScreenState extends State<PrintingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (mainImageKey.currentContext != null) {
+      RenderBox imageBox =
+          mainImageKey.currentContext?.findRenderObject() as RenderBox;
+      imageMaxHeight = imageBox.size.height;
+    }
+
     return DefaultLayout(
       appbar: const DefaultAppBar(
         title: '프린팅',
@@ -64,38 +72,33 @@ class _PrintingScreenState extends State<PrintingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Stack(
-                children: [
-                  Image.asset('asset/image/product/${widget.id}.png'),
-                  if (image != null)
-                    Positioned.fill(
-                      child: InteractiveViewer(
-                        child: Stack(
-                          fit: StackFit.expand, // 크기 최대로 늘리기
-                          children: [
-                            ...stickers.map(
-                              // 기본 위치는 중앙
-                              (sticker) {
-                                setState(() {
-                                  isCompletionImage = true;
-                                });
-                                return Center(
-                                  child: Sticker(
-                                    key: ObjectKey(sticker.id),
-                                    onTransform: () {
-                                      onTransform(sticker.id);
-                                    },
-                                    imgPath: sticker.imagePath,
-                                    isSelected: selectedId == sticker.id,
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                ],
+              InteractiveViewer(
+                child: Stack(
+                  fit: StackFit.loose, // 크기 최대로 늘리기
+                  children: [
+                    Image.asset(
+                      key: mainImageKey,
+                      'asset/image/product/${widget.id}.png',
+                    ),
+                    ...stickers.map(
+                      // 기본 위치는 중앙
+                      (sticker) {
+                        setState(() {
+                          isCompletionImage = true;
+                        });
+                        return Sticker(
+                          key: ObjectKey(sticker.id),
+                          onTransform: () {
+                            onTransform(sticker.id);
+                          },
+                          imgPath: sticker.imagePath,
+                          isSelected: selectedId == sticker.id,
+                          imageMaxHeight: imageMaxHeight,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(

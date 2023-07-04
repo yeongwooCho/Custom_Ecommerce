@@ -1,18 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 // 이모티콘 스티커를 이미지에 붙이는 기능
 class Sticker extends StatefulWidget {
   final VoidCallback onTransform;
   final String imgPath;
   final bool isSelected;
+  final double imageMaxHeight;
 
   const Sticker({
     Key? key,
     required this.onTransform,
     required this.imgPath,
     required this.isSelected,
+    required this.imageMaxHeight,
   }) : super(key: key);
 
   @override
@@ -37,17 +40,27 @@ class _StickerState extends State<Sticker> {
         ..translate(hTransform, vTransform) // 상 / 하 움직임 정의
         ..scale(scale, scale), // 확대/축소 정의
       child: Container(
+        constraints: BoxConstraints(
+          minWidth: 0.0,
+          minHeight: 0.0,
+          maxWidth: widget.imageMaxHeight,
+          maxHeight: widget.imageMaxHeight,
+        ),
         decoration: widget.isSelected
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),
-                border: Border.all(color: Colors.blue, width: 1.0),
+                border: Border.all(
+                  color: Colors.blue,
+                  width: 1.0,
+                ),
               )
             : BoxDecoration(
                 // TODO: 테두리는 투명이나 너비는 1로 설정해서 스티커가 선택 취소될 때 깜빡이는 현상 제거
                 border: Border.all(
-                width: 1.0,
-                color: Colors.transparent, // TODO: 이것은 무엇 인고??
-              )),
+                  width: 1.0,
+                  color: Colors.transparent, // TODO: 이것은 무엇 인고??
+                ),
+              ),
         child: GestureDetector(
           // 스티커를 눌렀을 때 실행할 함수
           onTap: () {
@@ -68,6 +81,7 @@ class _StickerState extends State<Sticker> {
           // 스티커의 확대 비율이 변경이 완료 됐을 때 실행
           child: Image.file(
             File(widget.imgPath),
+            fit: BoxFit.scaleDown,
           ),
         ),
       ),
