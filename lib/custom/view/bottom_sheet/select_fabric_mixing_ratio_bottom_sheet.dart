@@ -35,7 +35,7 @@ class _SelectFabricMixingRatioBottomSheetState
       itemCount: selectedItemsCount,
     );
     totalRatio = selectedMixingRatioItemsValues.reduce(
-          (value, element) => value + element,
+      (value, element) => value + element,
     );
   }
 
@@ -44,6 +44,10 @@ class _SelectFabricMixingRatioBottomSheetState
     int selectedItemsCount = widget.selectedItems.length;
     valueChanges = getValueChanges(itemCount: selectedItemsCount);
 
+    return selectedItemsCount < 8 ? renderLittleFabric() : renderManyFabric();
+  }
+
+  Widget renderLittleFabric() {
     return Column(
       children: [
         Expanded(
@@ -72,17 +76,14 @@ class _SelectFabricMixingRatioBottomSheetState
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Column(
-                  children: widget.selectedItems
-                      .asMap()
-                      .entries
-                      .map((entry) {
+                  children: widget.selectedItems.asMap().entries.map((entry) {
                     int index = entry.key;
                     String title = entry.value;
 
                     return CustomRatioSlider(
                       title: title,
                       ratioValue:
-                      selectedMixingRatioItemsValues[index].toDouble(),
+                          selectedMixingRatioItemsValues[index].toDouble(),
                       onRatioValueChange: valueChanges[index],
                     );
                   }).toList(),
@@ -97,12 +98,15 @@ class _SelectFabricMixingRatioBottomSheetState
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ElevatedButton(
-                    onPressed: totalRatio == 100.0 ? () {
-                      for (double element in selectedMixingRatioItemsValues) {
-                        widget.selectedMixingRatioValues.add(element);
-                      }
-                      widget.popBottomSheet!();
-                    } : null,
+                    onPressed: totalRatio == 100.0
+                        ? () {
+                            for (double element
+                                in selectedMixingRatioItemsValues) {
+                              widget.selectedMixingRatioValues.add(element);
+                            }
+                            widget.popBottomSheet!();
+                          }
+                        : null,
                     child: const Text('원단 배합률 지정'),
                   ),
                 ),
@@ -111,6 +115,78 @@ class _SelectFabricMixingRatioBottomSheetState
           ),
         ),
       ],
+    );
+  }
+
+  Widget renderManyFabric() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              height: 200.0,
+              color: EMPTY_COLOR,
+            ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              color: BACKGROUND_COLOR,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(16.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 24.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Column(
+                    children: widget.selectedItems.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      String title = entry.value;
+
+                      return CustomRatioSlider(
+                        title: title,
+                        ratioValue:
+                            selectedMixingRatioItemsValues[index].toDouble(),
+                        onRatioValueChange: valueChanges[index],
+                      );
+                    }).toList(),
+                  ),
+                  CustomRatioSlider(
+                    title: '배합률 합계',
+                    ratioValue: totalRatio,
+                    onRatioValueChange: null,
+                    thumbSize: 0.0,
+                  ),
+                  const SizedBox(height: 24.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: totalRatio == 100.0
+                          ? () {
+                              for (double element
+                                  in selectedMixingRatioItemsValues) {
+                                widget.selectedMixingRatioValues.add(element);
+                              }
+                              widget.popBottomSheet!();
+                            }
+                          : null,
+                      child: const Text('원단 배합률 지정'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
