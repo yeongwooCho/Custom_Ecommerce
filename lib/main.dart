@@ -6,6 +6,7 @@ import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/view/root_tab.dart';
 import 'package:custom_clothes/user/view/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'common/const/colors.dart';
 import 'common/view/splash_screen.dart';
@@ -21,6 +22,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 화면 세로 고정
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (RouteSettings settings) {
