@@ -185,42 +185,46 @@ class CustomTerm extends StatelessWidget {
       fontWeight: FontWeight.bold,
       fontSize: 14.0,
     );
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18.0,
-        vertical: 10.0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: isCheck ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.check,
-                    color: isCheck ? WHITE_TEXT_COLOR : DEFAULT_TEXT_COLOR,
-                    size: 16.0,
+    return Container(
+      color: BACKGROUND_COLOR,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 18.0,
+          vertical: 10.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: isCheck ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.check,
+                      color: isCheck ? WHITE_TEXT_COLOR : DEFAULT_TEXT_COLOR,
+                      size: 16.0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 8.0),
-              Text(
-                title,
-                style: textStyle,
-              ),
-            ],
-          ),
-          const Icon(
-            Icons.chevron_right,
-            color: DEFAULT_TEXT_COLOR,
-          )
-        ],
+                const SizedBox(width: 8.0),
+                Text(
+                  title,
+                  style: textStyle,
+                ),
+              ],
+            ),
+            const Icon(
+              Icons.chevron_right,
+              color: DEFAULT_TEXT_COLOR,
+            )
+          ],
+        ),
       ),
     );
   }
