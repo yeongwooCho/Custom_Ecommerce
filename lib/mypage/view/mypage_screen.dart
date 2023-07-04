@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/route/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -111,9 +112,12 @@ class _MypageScreenState extends State<MypageScreen> {
                   style: textStyle,
                 ),
                 getListCard(
-                  title: '로그아웃',
-                  style: textStyle,
-                ),
+                    title: '로그아웃',
+                    style: textStyle,
+                    onTap: () {
+                      print(1);
+                      _showLogoutDialog();
+                    }),
               ],
             ),
           )
@@ -122,23 +126,63 @@ class _MypageScreenState extends State<MypageScreen> {
     );
   }
 
-  Widget getListCard({required String title, TextStyle? style}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 12.0,
-        horizontal: 4.0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title, style: style),
-          const Icon(
-            Icons.chevron_right,
-            color: DEFAULT_TEXT_COLOR,
-            size: 24.0,
+  Widget getListCard({
+    required String title,
+    TextStyle? style,
+    GestureTapCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: BACKGROUND_COLOR,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 12.0,
+            horizontal: 4.0,
           ),
-        ],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title, style: style),
+              const Icon(
+                Icons.chevron_right,
+                color: DEFAULT_TEXT_COLOR,
+                size: 24.0,
+              ),
+            ],
+          ),
+        ),
       ),
+    );
+  }
+
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: const Text("로그아웃"),
+          content: const Text("로그아웃을 원하시면 로그아웃 버튼을 눌러주세요."),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("로그아웃"),
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  RouteNames.login,
+                  (route) => false,
+                );
+              },
+            ),
+            TextButton(
+              child: const Text("취소"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
