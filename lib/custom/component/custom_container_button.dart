@@ -20,9 +20,9 @@ class CustomContainerButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: onTap != null ? BACKGROUND_COLOR : MIDDLE_GREY_COLOR,
+          color: onTap != null ? BACKGROUND_COLOR : LIGHT_GREY_COLOR,
           border: Border.all(
-            color: onTap != null ? DEFAULT_TEXT_COLOR : MIDDLE_GREY_COLOR,
+            color: onTap != null ? DEFAULT_TEXT_COLOR : LIGHT_GREY_COLOR,
             width: 1.0,
           ),
           borderRadius: BorderRadius.circular(8.0),
@@ -38,7 +38,9 @@ class CustomContainerButton extends StatelessWidget {
               ),
               Text(
                 title,
-                style: bodyBoldTextStyle,
+                style: onTap != null
+                    ? bodyBoldTextStyle
+                    : bodyMediumTextStyle.copyWith(color: DARK_GREY_COLOR),
               ),
               const SizedBox(width: 12.0),
               if (onTap != null)
