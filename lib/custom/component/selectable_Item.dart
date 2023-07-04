@@ -24,26 +24,30 @@ class SelectableItem extends StatelessWidget {
           color: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Chip(
-          backgroundColor: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
-          elevation: 0.0,
-          padding: const EdgeInsets.all(8.0),
-          labelPadding: const EdgeInsets.only(left: 12.0),
-          avatar: CircleAvatar(
-            backgroundColor: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
-            child: Icon(
-              Icons.check_circle,
-              size: 30.0,
-              color: isSelected ? WHITE_TEXT_COLOR : DARK_GREY_COLOR,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: Chip(
+            side: BorderSide(
+              color: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
             ),
-          ),
-          label: Text(
-            title,
-            style: isSelected
-                ? bodyBoldWhiteTextStyle
-                : bodyBoldTextStyle.copyWith(
-                    color: DARK_GREY_COLOR,
-                  ),
+            backgroundColor: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
+            elevation: 0.0,
+            labelPadding: const EdgeInsets.only(left: 8.0),
+            avatar: CircleAvatar(
+              backgroundColor: isSelected ? PRIMARY_COLOR : LIGHT_GREY_COLOR,
+              child: Icon(
+                Icons.check_circle,
+                color: isSelected ? WHITE_TEXT_COLOR : DARK_GREY_COLOR,
+              ),
+            ),
+            label: Text(
+              title,
+              style: isSelected
+                  ? bodyBoldWhiteTextStyle
+                  : bodyBoldTextStyle.copyWith(
+                      color: DARK_GREY_COLOR,
+                    ),
+            ),
           ),
         ),
       ),
