@@ -4,6 +4,7 @@ import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
 import 'package:custom_clothes/common/model/enum/catetory_label.dart';
+import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
@@ -19,14 +20,15 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   CategoryLabel selectedCategoryLabel = CategoryLabel.recommend;
-  List<Map<String, dynamic>> showItems = [];
+  List<ProductModel> showItems = [];
 
   @override
   Widget build(BuildContext context) {
     // category item count
     showItems = totalProductItems
-        .where((element) =>
-            element['category']!.contains(selectedCategoryLabel.label))
+        .where(
+          (element) => element.categories.contains(selectedCategoryLabel),
+        )
         .toList();
 
     // grid item size
@@ -81,8 +83,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 height: gridHeight,
                 child: CustomProductListScreen(
                   items: totalProductItems
-                      .where((element) => element['category']!
-                          .contains(selectedCategoryLabel.label))
+                      .where(
+                        (element) =>
+                            element.categories.contains(selectedCategoryLabel),
+                      )
                       .toList(),
                   isScroll: false,
                   onTapItem: onTapItem,

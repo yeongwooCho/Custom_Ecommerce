@@ -1,10 +1,11 @@
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
+import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/variable/format.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductListScreen extends StatefulWidget {
-  final List<Map<String, dynamic>> items;
+  final List<ProductModel> items;
   final bool isScroll;
   final void Function({required String id})? onTapItem;
 
@@ -42,16 +43,9 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
         child: GestureDetector(
           onTap: () {
             // widget.onTapItem!(id: '${index + 1}');
-            widget.onTapItem!(id: widget.items[index]['id']);
+            widget.onTapItem!(id: widget.items[index].id);
           },
           child: GridTile(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Image.asset(
-                'asset/image/product/${widget.items[index]['image_name']}',
-                fit: BoxFit.contain,
-              ),
-            ),
             footer: Container(
               height: footerHeight,
               child: GridTileBar(
@@ -61,17 +55,26 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      widget.items[index]['productName'],
+                      widget.items[index].productName,
                       style: productTitleStyle,
                       maxLines: 2,
                     ),
                     Text(
-                      '${numberFormat.format(widget.items[index]['productPrice'])} 원',
+                      '${numberFormat.format(widget.items[index].productPrice)} 원',
                       style: productMoneyStyle,
                     ),
                   ],
                 ),
               ),
+            ),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: widget.items[index].assetImageName != null
+                  ? Image.asset(
+                      widget.items[index].assetImageName!,
+                      fit: BoxFit.contain,
+                    )
+                  : Container(),
             ),
           ),
         ),

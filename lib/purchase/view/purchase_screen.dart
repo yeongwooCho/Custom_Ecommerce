@@ -3,6 +3,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
@@ -231,8 +232,8 @@ class _ProductInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> selectedItem =
-        totalProductItems.where((element) => element['id'] == id).first;
+    ProductModel selectedItem =
+        totalProductItems.where((element) => element.id == id).first;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -244,12 +245,13 @@ class _ProductInfo extends StatelessWidget {
         const SizedBox(height: 24.0),
         Row(
           children: [
-            Image.asset(
-              'asset/image/product/${selectedItem['image_name']}',
-              height: 150.0,
-              width: 150.0,
-              fit: BoxFit.fill,
-            ),
+            if (selectedItem.assetImageName != null)
+              Image.asset(
+                selectedItem.assetImageName!,
+                height: 150.0,
+                width: 150.0,
+                fit: BoxFit.fill,
+              ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Column(
@@ -257,7 +259,7 @@ class _ProductInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    selectedItem['productName']!,
+                    selectedItem.productName,
                     style: bodyBoldTextStyle,
                   ),
                   const SizedBox(height: 8.0),
@@ -444,8 +446,8 @@ class _TotalPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> selectedItem =
-        totalProductItems.where((element) => element['id'] == id).first;
+    ProductModel selectedItem =
+        totalProductItems.where((element) => element.id == id).first;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -462,7 +464,7 @@ class _TotalPayment extends StatelessWidget {
               style: bodyMediumTextStyle,
             ),
             Text(
-              '${numberFormat.format(selectedItem['productPrice'])} 원',
+              '${numberFormat.format(selectedItem.productPrice)} 원',
               style: bodyMediumTextStyle,
             ),
           ],
@@ -476,7 +478,7 @@ class _TotalPayment extends StatelessWidget {
               style: bodyMediumTextStyle,
             ),
             Text(
-              '${numberFormat.format(selectedItem['customPrice'])} 원',
+              '${numberFormat.format(selectedItem.customPrice)} 원',
               style: bodyMediumTextStyle,
             ),
           ],
@@ -518,7 +520,7 @@ class _TotalPayment extends StatelessWidget {
               style: bodyBoldTextStyle,
             ),
             Text(
-              '${numberFormat.format(selectedItem['customPrice'] * amount)} 원',
+              '${numberFormat.format(selectedItem.customPrice * amount)} 원',
               style: bodyBoldTextStyle,
             ),
           ],

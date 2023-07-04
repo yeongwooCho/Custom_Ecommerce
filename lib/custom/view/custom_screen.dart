@@ -4,6 +4,7 @@ import 'package:custom_clothes/common/const/custom_button_style.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
@@ -134,8 +135,8 @@ class _CustomScreenState extends State<CustomScreen> {
         topButtonTitle: isDoing ? '완료 탭으로 이동' : '구매하기',
         onPressedTopButton: isDoing
             ? () {
-                Map<String, dynamic> newEntry = doingProductItems
-                    .where((element) => element['id'] == id)
+                ProductModel newEntry = doingProductItems
+                    .where((element) => element.id == id)
                     .first;
                 completionProductItems.add(newEntry);
                 doingProductItems.remove(newEntry);

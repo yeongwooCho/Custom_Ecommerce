@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/component/divide_line.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/common/variable/format.dart';
@@ -17,8 +18,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> selectedItem =
-        totalProductItems.where((element) => element['id'] == id).first;
+    ProductModel selectedItem =
+        totalProductItems.where((element) => element.id == id).first;
 
     return DefaultLayout(
       appbar: const DefaultAppBar(title: ''),
@@ -26,7 +27,8 @@ class ProductDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset('asset/image/product/${selectedItem['image_name']}'),
+            if (selectedItem.assetImageName != null)
+              Image.asset(selectedItem.assetImageName!),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
@@ -34,26 +36,27 @@ class ProductDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    selectedItem['productName']!,
+                    selectedItem.productName,
                     style: productTitleStyle.copyWith(fontSize: 20.0),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    '${numberFormat.format(selectedItem['productPrice'])} 원',
+                    '${numberFormat.format(selectedItem.productPrice)} 원',
                     style: productMoneyStyle.copyWith(fontSize: 24.0),
                   ),
                 ],
               ),
             ),
             const DivideLine(),
+            // TODO: 여기 상세 이미지 수정해야 함.
             ProductDetailDescriptionScreen(id: '1'),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  Map<String, dynamic> newEntry = totalProductItems
-                      .where((element) => element['id'] == id)
+                  ProductModel newEntry = totalProductItems
+                      .where((element) => element.id == id)
                       .first;
                   doingProductItems.add(newEntry);
                   Navigator.of(context).pushNamedAndRemoveUntil(
