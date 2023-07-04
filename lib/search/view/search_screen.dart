@@ -3,37 +3,11 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/enum/catetory_label.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:flutter/material.dart';
-
-enum CategoryLabel {
-  recommend('추천'),
-  top('상의'),
-  onePiece('원피스'),
-  bottom('바지'),
-  outer('아우터'),
-  skirt('스커트'),
-  knitWear('니트웨어'),
-  homeWear('홈웨어');
-
-  const CategoryLabel(this.label);
-
-  final String label;
-}
-
-//
-// List<String> categories = [
-//   '추천',
-//   '상의',
-//   '원피스',
-//   '바지',
-//   '아우터',
-//   '스커트',
-//   '니트웨어',
-//   '홈웨어',
-// ];
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -60,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double itemWidth = (MediaQuery.of(context).size.width - 40) / 2;
     double itemHeight = itemWidth / 16 * 27;
     double gridHeight = 0.0;
-    if(rowCount != 0) {
+    if (rowCount != 0) {
       gridHeight = (rowCount * itemHeight) + ((rowCount - 1) * 12);
     }
 
