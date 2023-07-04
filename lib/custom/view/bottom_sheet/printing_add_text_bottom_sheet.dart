@@ -1,8 +1,10 @@
 import 'package:custom_clothes/common/component/custom_text_form_field.dart';
+import 'package:custom_clothes/common/component/custom_toast.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/custom/component/color_container.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PrintingAddTextBottomSheet extends StatefulWidget {
   final void Function()? popBottomSheet;
@@ -86,17 +88,19 @@ class _PrintingAddTextBottomSheetState
               children: [
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 4.0, bottom: 18.0),
                       child: Text(
                         '텍스트 입력',
                         style: bodyBoldTextStyle,
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     Expanded(
                       child: CustomTextFormField(
                         onChanged: onChangedText,
+                        maxLength: 20,
+                        hintText: 'ex) Have Custom',
                       ),
                     ),
                   ],
@@ -104,18 +108,20 @@ class _PrintingAddTextBottomSheetState
                 const SizedBox(height: 24.0),
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 4.0, bottom: 18.0),
                       child: Text(
                         '텍스트 크기',
                         style: bodyBoldTextStyle,
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     Expanded(
                       child: CustomTextFormField(
                         keyboardType: KeyboardType.number,
                         onChanged: onChangedTextSize,
+                        maxLength: 2,
+                        hintText: 'ex) 24',
                       ),
                     ),
                   ],
@@ -151,6 +157,11 @@ class _PrintingAddTextBottomSheetState
                       inputTextSizeToInt = int.parse(inputTextSize.trim());
                     } catch (error) {
                       inputTextSizeToInt = 0;
+                    }
+
+                    if (inputText.isEmpty || inputTextSizeToInt == 0) {
+                      CustomToast.renderToast(msg: '텍스트와 텍스트 크기를 모두 입력 해주세요.');
+                      return;
                     }
 
                     if (widget.addText != null && inputTextSizeToInt != 0) {

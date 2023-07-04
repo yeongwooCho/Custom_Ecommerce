@@ -14,6 +14,8 @@ class CustomTextFormField extends StatelessWidget {
   final KeyboardType keyboardType;
   final ValueChanged<String>? onChanged;
   final bool obscureText;
+  final String? hintText;
+  final int? maxLength;
 
   const CustomTextFormField({
     Key? key,
@@ -23,6 +25,8 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType = KeyboardType.everything,
     this.onChanged,
     this.obscureText = false,
+    this.hintText,
+    this.maxLength,
   }) : super(key: key);
 
   @override
@@ -60,6 +64,8 @@ class CustomTextFormField extends StatelessWidget {
             keyboardType: keyboardType,
             obscureText: obscureText,
             onChanged: onChanged,
+            hintText: hintText,
+            maxLength: maxLength,
           ),
       ],
     );
@@ -70,12 +76,16 @@ class _TextField extends StatelessWidget {
   final bool obscureText;
   final KeyboardType keyboardType;
   final ValueChanged<String>? onChanged;
+  final String? hintText;
+  final int? maxLength;
 
   const _TextField({
     Key? key,
     required this.obscureText,
     required this.keyboardType,
     this.onChanged,
+    this.hintText,
+    this.maxLength,
   }) : super(key: key);
 
   @override
@@ -87,7 +97,9 @@ class _TextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
+        hintText: hintText,
       ),
+      maxLength: maxLength,
       keyboardType: keyboardType == KeyboardType.number
           ? TextInputType.number
           : TextInputType.multiline,
