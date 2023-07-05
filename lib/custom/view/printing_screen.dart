@@ -178,8 +178,9 @@ class _PrintingScreenState extends State<PrintingScreen> {
                         // png image 를 저장하기 위해 앱 내부 데이터를 저장하는 path 를 받아와 저장: path_provider
                         final directory =
                             (await getApplicationDocumentsDirectory()).path;
-                        File imgFile =
-                            File('$directory/screenshot${widget.id}.png');
+                        DateTime now = DateTime.now();
+                        File imgFile = File(
+                            '$directory/screenshot${widget.id}_${now.year}.${now.month}.${now.day}.${now.hour}.${now.minute}.${now.second}.png');
                         imgFile.writeAsBytes(pngBytes);
 
                         // 현재 item을 불러와 fileImage에 저장한 image path를 삽입 후 완료 탭으로 이동
