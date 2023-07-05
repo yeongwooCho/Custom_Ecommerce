@@ -7,6 +7,7 @@ import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/common/variable/format.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String id;
@@ -58,7 +59,17 @@ class ProductDetailScreen extends StatelessWidget {
                   ProductModel newEntry = totalProductItems
                       .where((element) => element.id == id)
                       .first;
-                  doingProductItems.add(newEntry);
+                  ProductModel newProduct = ProductModel(
+                    id: Uuid().v4(),
+                    isCompletion: false,
+                    assetImageName: newEntry.assetImageName,
+                    fileImage: newEntry.fileImage,
+                    productName: newEntry.productName,
+                    productPrice: newEntry.productPrice,
+                    customPrice: newEntry.customPrice,
+                    categories: newEntry.categories,
+                  );
+                  userProductItems.add(newProduct);
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     RouteNames.root,
                     (route) => false,

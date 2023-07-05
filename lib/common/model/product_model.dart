@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ProductModel {
   String id;
+  bool isCompletion;
   String? assetImageName;
   String? fileImage;
   String productName;
@@ -12,6 +13,7 @@ class ProductModel {
 
   ProductModel({
     required this.id,
+    required this.isCompletion,
     required this.assetImageName,
     required this.fileImage,
     required this.productName,

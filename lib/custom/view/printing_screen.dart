@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:custom_clothes/common/component/custom_flexible_image.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
@@ -71,6 +72,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
       imageMaxHeight = imageBox.size.height;
     }
 
+    ProductModel? customProduct = userProductItems.where((element) => element.id == widget.id).toList().first;
+
     return DefaultLayout(
       appbar: const DefaultAppBar(
         title: '프린팅',
@@ -88,10 +91,11 @@ class _PrintingScreenState extends State<PrintingScreen> {
                   child: Stack(
                     fit: StackFit.loose, // 크기 최대로 늘리기
                     children: [
-                      Image.asset(
-                        key: mainImageKey,
-                        'asset/image/product/${widget.id}.png',
-                      ),
+                      CustomFlexibleImage(product: customProduct, key: mainImageKey,),
+                      // Image.asset(
+                      //   key: mainImageKey,
+                      //   'asset/image/product/${widget.id}.png',
+                      // ),
                       ...stickers.map(
                         // 기본 위치는 중앙
                         (sticker) => Sticker(
@@ -175,10 +179,9 @@ class _PrintingScreenState extends State<PrintingScreen> {
                         imgFile.writeAsBytes(pngBytes);
 
                         // 현재 item을 불러와 fileImage에 저장한 image path를 삽입 후 완료 탭으로 이동
-                        ProductModel completionItem = doingProductItems.where((element) => element.id == widget.id).first;
+                        ProductModel completionItem = userProductItems.where((element) => element.id == widget.id).first;
                         completionItem.fileImage = imgFile.path;
-                        completionProductItems.add(completionItem);
-                        doingProductItems.remove(completionItem);
+                        completionItem.isCompletion = true;
 
                         // text 제거
                         initOverlayProperty();

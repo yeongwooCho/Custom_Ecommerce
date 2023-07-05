@@ -1,9 +1,12 @@
 import 'package:custom_clothes/common/model/enum/catetory_label.dart';
 import 'package:custom_clothes/common/model/product_model.dart';
+import 'package:uuid/uuid.dart';
 
 List<ProductModel> totalProductItems = [
   ProductModel(
-    id: '1',
+    id: Uuid().v4(),
+    // id: '1',
+    isCompletion: false,
     assetImageName: 'asset/image/product/1.png',
     fileImage: null,
     productName: '초록색을 갖고 있는 보풀 가득한 니트',
@@ -15,7 +18,9 @@ List<ProductModel> totalProductItems = [
     ],
   ),
   ProductModel(
-    id: '2',
+    id: Uuid().v4(),
+    // id: '2',
+    isCompletion: false,
     assetImageName: 'asset/image/product/2.png',
     fileImage: null,
     productName: '핀턱 롱 원피스',
@@ -27,7 +32,9 @@ List<ProductModel> totalProductItems = [
     ],
   ),
   ProductModel(
-    id: '3',
+    id: Uuid().v4(),
+    // id: '3',
+    isCompletion: false,
     assetImageName: 'asset/image/product/3.png',
     fileImage: null,
     productName: '트랙 자켓 캔버스',
@@ -39,7 +46,9 @@ List<ProductModel> totalProductItems = [
     ],
   ),
   ProductModel(
-    id: '4',
+    id: Uuid().v4(),
+    // id: '4',
+    isCompletion: false,
     assetImageName: 'asset/image/product/4.png',
     fileImage: null,
     productName: '오버핏 반팔 티셔츠',
@@ -51,5 +60,7 @@ List<ProductModel> totalProductItems = [
     ],
   ),
 ];
-List<ProductModel> doingProductItems = [];
-List<ProductModel> completionProductItems = [];
+
+List<ProductModel> userProductItems = [];
+// List<ProductModel> doingProductItems = [];
+// List<ProductModel> completionProductItems = [];

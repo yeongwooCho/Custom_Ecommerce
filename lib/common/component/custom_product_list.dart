@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:custom_clothes/common/component/custom_flexible_image.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/model/product_model.dart';
@@ -71,20 +72,17 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
             ),
             child: Align(
               alignment: Alignment.topCenter,
-              // child: widget.items[index].assetImageName != null
-              //     ? Image.asset(
-              //         widget.items[index].assetImageName!,
-              //         fit: BoxFit.contain,
-              //       )
-              //     : Container(),
-              child: widget.items[index].fileImage != null
-                  ? Image.file(File(widget.items[index].fileImage!))
-                  : widget.items[index].assetImageName != null
-                      ? Image.asset(
-                          widget.items[index].assetImageName!,
-                          fit: BoxFit.contain,
-                        )
-                      : Container(),
+              // child: widget.items[index].fileImage != null
+              //     ? Image.file(File(widget.items[index].fileImage!))
+              //     : widget.items[index].assetImageName != null
+              //         ? Image.asset(
+              //             widget.items[index].assetImageName!,
+              //             fit: BoxFit.contain,
+              //           )
+              //         : Container(),
+              child: CustomFlexibleImage(
+                product: widget.items[index],
+              ),
             ),
           ),
         ),

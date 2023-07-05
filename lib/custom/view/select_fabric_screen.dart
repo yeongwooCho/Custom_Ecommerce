@@ -1,8 +1,11 @@
+import 'package:custom_clothes/common/component/custom_flexible_image.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
+import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
 import 'package:custom_clothes/custom/view/bottom_sheet/select_fabric_color_bottom_sheet.dart';
 import 'package:custom_clothes/custom/view/bottom_sheet/select_fabric_mixing_ratio_bottom_sheet.dart';
@@ -54,6 +57,8 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ProductModel? customProduct = userProductItems.where((element) => element.id == widget.id).toList().first;
+
     return DefaultLayout(
       appbar: const DefaultAppBar(
         title: '원단 지정',
@@ -64,7 +69,8 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset('asset/image/product/${widget.id}.png'),
+              CustomFlexibleImage(product: customProduct),
+              // Image.asset('asset/image/product/${widget.id}.png'),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
