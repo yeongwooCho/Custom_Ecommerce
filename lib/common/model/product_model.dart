@@ -1,9 +1,10 @@
 import 'package:custom_clothes/common/model/enum/catetory_label.dart';
+import 'package:flutter/material.dart';
 
 class ProductModel {
   String id;
   String? assetImageName;
-  String? fileImageName;
+  String? fileImage;
   String productName;
   int productPrice;
   int customPrice;
@@ -12,7 +13,7 @@ class ProductModel {
   ProductModel({
     required this.id,
     required this.assetImageName,
-    required this.fileImageName,
+    required this.fileImage,
     required this.productName,
     required this.productPrice,
     required this.customPrice,
