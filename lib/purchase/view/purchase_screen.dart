@@ -12,13 +12,20 @@ import 'package:custom_clothes/common/variable/format.dart';
 import 'package:custom_clothes/custom/component/drop_down_menu.dart';
 import 'package:flutter/material.dart';
 
-class PurchaseScreen extends StatelessWidget {
+class PurchaseScreen extends StatefulWidget {
   final String id;
 
   const PurchaseScreen({
     Key? key,
     required this.id,
   }) : super(key: key);
+
+  @override
+  State<PurchaseScreen> createState() => _PurchaseScreenState();
+}
+
+class _PurchaseScreenState extends State<PurchaseScreen> {
+  int amount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +46,30 @@ class PurchaseScreen extends StatelessWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-              child: _ProductInfo(id: id),
+              child: _ProductInfo(id: widget.id),
             ),
             DivideLine(),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-              child: _SizeAmount(),
+              // child: _SizeAmount(amount: amount, totalAmount: (int amount){
+              //   this.amount = amount;
+              // }),
+              child: _SizeAmount(
+                totalAmount: ({required int amount}) {
+                  setState(() {
+                    this.amount = amount;
+                  });
+                },
+              ),
             ),
             DivideLine(),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
               child: _TotalPayment(
-                id: id,
-                amount: 11,
+                id: widget.id,
+                amount: amount,
               ),
             ),
             DivideLine(),
@@ -67,6 +83,10 @@ class PurchaseScreen extends StatelessWidget {
                   const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 24.0),
               child: ElevatedButton(
                 onPressed: () {
+                  userProductItems = userProductItems
+                      .where((element) => element.id != widget.id)
+                      .toList();
+
                   Navigator.of(context).pushNamed(
                     RouteNames.completion,
                     arguments: ScreenArguments('title', '결제가 완료되었습니다!'),
@@ -316,7 +336,12 @@ class _ProductInfo extends StatelessWidget {
 }
 
 class _SizeAmount extends StatefulWidget {
-  const _SizeAmount({Key? key}) : super(key: key);
+  final void Function({required int amount})? totalAmount;
+
+  const _SizeAmount({
+    Key? key,
+    required this.totalAmount,
+  }) : super(key: key);
 
   @override
   State<_SizeAmount> createState() => _SizeAmountState();
@@ -325,26 +350,34 @@ class _SizeAmount extends StatefulWidget {
 class _SizeAmountState extends State<_SizeAmount> {
   SizeLabel? selectedSize;
   String? selectedAmount;
-  List<Map<String, String>> selectedSizeAmount = [];
+  Set<Map<String, String>> selectedSizeAmount = {};
 
   void onSelectedSize(SizeLabel? size) {
     setState(() {
       if (selectedAmount != null) {
+        selectedSizeAmount = selectedSizeAmount
+            .where((element) => element['size'] != size?.label)
+            .toSet();
         selectedSizeAmount.add({
           'size': '${size?.label}',
           'amount': '$selectedAmount',
         });
+
         selectedSize = null;
         selectedAmount = null;
       } else {
         selectedSize = size;
       }
+      calculateAmount();
     });
   }
 
   void onSelectedAmount(String? amount) {
     setState(() {
       if (selectedSize != null) {
+        selectedSizeAmount = selectedSizeAmount
+            .where((element) => element['size'] != selectedSize?.label)
+            .toSet();
         selectedSizeAmount.add({
           'size': '${selectedSize?.label}',
           'amount': '$amount',
@@ -354,7 +387,22 @@ class _SizeAmountState extends State<_SizeAmount> {
       } else {
         selectedAmount = amount;
       }
+      calculateAmount();
     });
+  }
+
+  void calculateAmount() {
+    if (selectedSizeAmount.isNotEmpty) {
+      int realtimeAmount = selectedSizeAmount.map((e) {
+        try {
+          int amount = int.parse(e['amount']!);
+          return amount;
+        } catch (error) {
+          return 0;
+        }
+      }).reduce((value, element) => value + element);
+      widget.totalAmount!(amount: realtimeAmount);
+    }
   }
 
   @override

@@ -51,7 +51,7 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
 
     final List<DropdownMenuEntry<String>> amountEntries =
         <DropdownMenuEntry<String>>[];
-    for (int index = 1; index < 31; index++) {
+    for (int index = 0; index < 31; index++) {
       amountEntries.add(
         DropdownMenuEntry<String>(
           value: '$index',
