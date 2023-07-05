@@ -4,25 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // 이모티콘 스티커를 이미지에 붙이는 기능
-class Sticker extends StatefulWidget {
-  final VoidCallback onTransform;
-  final String imgPath;
+class TextSticker extends StatefulWidget {
+  final VoidCallback onTextTransform;
+  final String? addText;
+  final TextStyle textStyle;
   final bool isSelected;
   final double imageMaxHeight;
 
-  const Sticker({
+  const TextSticker({
     Key? key,
-    required this.onTransform,
-    required this.imgPath,
+    required this.onTextTransform,
+    required this.addText,
+    required this.textStyle,
     required this.isSelected,
     required this.imageMaxHeight,
   }) : super(key: key);
 
   @override
-  State<Sticker> createState() => _StickerState();
+  State<TextSticker> createState() => _TextStickerState();
 }
 
-class _StickerState extends State<Sticker> {
+class _TextStickerState extends State<TextSticker> {
   double scale = 1.0; // 확대/축소 배율 (업데이트 도중 현재의 배율)
 
   double hTransform = 0.0; // 가로의 움직임
@@ -53,29 +55,14 @@ class _StickerState extends State<Sticker> {
             color: Colors.transparent, // TODO: 이것은 무엇 인고??
           ),
         ),
-        // decoration: widget.isSelected
-        //     ? BoxDecoration(
-        //         borderRadius: BorderRadius.circular(4.0),
-        //         border: Border.all(
-        //           color: Colors.blue,
-        //           width: 1.0,
-        //         ),
-        //       )
-        //     : BoxDecoration(
-        //         // TODO: 테두리는 투명이나 너비는 1로 설정해서 스티커가 선택 취소될 때 깜빡이는 현상 제거
-        //         border: Border.all(
-        //           width: 1.0,
-        //           color: Colors.transparent, // TODO: 이것은 무엇 인고??
-        //         ),
-        //       ),
         child: GestureDetector(
           // 스티커를 눌렀을 때 실행할 함수
           onTap: () {
-            widget.onTransform(); // 스티커의 상태가 변경될 때마다 실행
+            widget.onTextTransform(); // 스티커의 상태가 변경될 때마다 실행
           },
           onScaleUpdate: (ScaleUpdateDetails details) {
             // 스티커의 확대 비율이 변경 됐을 때 실행
-            widget.onTransform();
+            widget.onTextTransform();
             setState(() {
               scale = details.scale * actualScale; // 최근 확대 비율 기반으로 실제 확대 비율 계산
               vTransform += details.focalPointDelta.dy; // 세로 이동 거리 계산
@@ -86,9 +73,9 @@ class _StickerState extends State<Sticker> {
             actualScale = scale; // 확대 비율 저장
           },
           // 스티커의 확대 비율이 변경이 완료 됐을 때 실행
-          child: Image.file(
-            File(widget.imgPath),
-            fit: BoxFit.scaleDown,
+          child: Text(
+            widget.addText ?? '',
+            style: widget.textStyle,
           ),
         ),
       ),
