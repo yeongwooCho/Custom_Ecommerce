@@ -1,5 +1,5 @@
 import 'package:custom_clothes/common/model/enum/catetory_label.dart';
-import 'package:flutter/material.dart';
+import 'package:custom_clothes/common/model/enum/fabric_label.dart';
 
 class ProductModel {
   String id;
@@ -10,6 +10,7 @@ class ProductModel {
   int productPrice;
   int customPrice;
   List<CategoryLabel> categories;
+  Map<FabricLabel, int> fabrics;
 
   ProductModel({
     required this.id,
@@ -20,5 +21,6 @@ class ProductModel {
     required this.productPrice,
     required this.customPrice,
     required this.categories,
+    required this.fabrics,
   });
 }

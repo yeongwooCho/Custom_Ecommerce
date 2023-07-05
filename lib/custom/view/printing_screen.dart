@@ -65,6 +65,8 @@ class _PrintingScreenState extends State<PrintingScreen> {
         .toList()
         .first;
 
+    print(customProduct.fabrics);
+
     return DefaultLayout(
       appbar: const DefaultAppBar(
         title: '프린팅',

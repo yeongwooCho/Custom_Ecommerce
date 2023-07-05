@@ -1,9 +1,10 @@
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/model/enum/fabric_label.dart';
 import 'package:custom_clothes/custom/component/custom_ratio_slider.dart';
 import 'package:flutter/material.dart';
 
 class SelectFabricMixingRatioBottomSheet extends StatefulWidget {
-  final List<String> selectedItems;
+  final List<FabricLabel> selectedItems;
   final List<double> selectedMixingRatioValues;
   final void Function()? popBottomSheet;
 
@@ -78,7 +79,7 @@ class _SelectFabricMixingRatioBottomSheetState
                 Column(
                   children: widget.selectedItems.asMap().entries.map((entry) {
                     int index = entry.key;
-                    String title = entry.value;
+                    String title = entry.value.label;
 
                     return CustomRatioSlider(
                       title: title,
@@ -149,7 +150,7 @@ class _SelectFabricMixingRatioBottomSheetState
                   Column(
                     children: widget.selectedItems.asMap().entries.map((entry) {
                       int index = entry.key;
-                      String title = entry.value;
+                      String title = entry.value.label;
 
                       return CustomRatioSlider(
                         title: title,

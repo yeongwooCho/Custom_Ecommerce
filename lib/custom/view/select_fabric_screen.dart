@@ -2,6 +2,7 @@ import 'package:custom_clothes/common/component/custom_flexible_image.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/enum/fabric_label.dart';
 import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
@@ -25,39 +26,17 @@ class SelectFabricScreen extends StatefulWidget {
 }
 
 class _SelectFabricScreenState extends State<SelectFabricScreen> {
-  List<String> fabricItems = [
-    '코튼(면)',
-    '울(양모)',
-    '나일론',
-    '아크릴',
-    '실크',
-    '레이온',
-    '폴리에스테르',
-    '시폰',
-    '퍼',
-    '리넨(마)',
-    '실켓',
-    '데님',
-    '레이스',
-    '텐셀',
-    '쭈리면',
-    '옥스퍼드',
-    '앙고라',
-    '분또',
-    '보카시',
-    '트위드',
-    '코듀로이',
-    '스웨이드',
-    '자카드',
-    '기모',
-  ];
-  List<String> selectedItems = [];
+  List<FabricLabel> fabricItems = FabricLabel.values;
+  List<FabricLabel> selectedItems = [];
   List<double> selectedMixingRatioValues = [];
   Color? selectedColor;
 
   @override
   Widget build(BuildContext context) {
-    ProductModel? customProduct = userProductItems.where((element) => element.id == widget.id).toList().first;
+    ProductModel? customProduct = userProductItems
+        .where((element) => element.id == widget.id)
+        .toList()
+        .first;
 
     return DefaultLayout(
       appbar: const DefaultAppBar(
@@ -113,6 +92,20 @@ class _SelectFabricScreenState extends State<SelectFabricScreen> {
                               selectedMixingRatioValues.isNotEmpty &&
                               selectedColor != null)
                           ? () {
+                              Map<FabricLabel, int> newFabrics = {};
+                              if (selectedItems.length ==
+                                  selectedMixingRatioValues.length) {
+                                for (int i = 0; i < selectedItems.length; i++) {
+                                  newFabrics[selectedItems[i]] =
+                                      selectedMixingRatioValues[i].toInt();
+                                }
+                                ProductModel customProduct = userProductItems
+                                    .where((element) => element.id == widget.id)
+                                    .first;
+
+                                customProduct.fabrics = newFabrics;
+                              }
+
                               Navigator.of(context).pushNamed(
                                 RouteNames.printing,
                                 arguments: ScreenArguments('id', widget.id),

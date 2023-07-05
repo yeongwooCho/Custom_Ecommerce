@@ -1,10 +1,11 @@
 import 'package:custom_clothes/common/const/colors.dart';
+import 'package:custom_clothes/common/model/enum/fabric_label.dart';
 import 'package:custom_clothes/custom/component/selectable_Item.dart';
 import 'package:flutter/material.dart';
 
 class SelectFabricTypeBottomSheet extends StatefulWidget {
-  final List<String> fabricItems;
-  final List<String> selectedItems;
+  final List<FabricLabel> fabricItems;
+  final List<FabricLabel> selectedItems;
   final void Function()? popBottomSheet;
 
   const SelectFabricTypeBottomSheet({
@@ -61,14 +62,13 @@ class _SelectFabricTypeBottomSheetState
                       .map(
                         (e) => SelectableItem(
                           isSelected: widget.selectedItems.contains(e),
-                          title: e,
+                          title: e.label,
                           onTap: () {
                             if (widget.selectedItems.contains(e)) {
                               widget.selectedItems.remove(e);
                             } else {
                               widget.selectedItems.add(e);
                             }
-                            print(widget.selectedItems);
                             setState(() {});
                           },
                         ),

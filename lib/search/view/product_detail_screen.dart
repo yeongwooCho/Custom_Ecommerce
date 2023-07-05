@@ -68,6 +68,7 @@ class ProductDetailScreen extends StatelessWidget {
                     productPrice: newEntry.productPrice,
                     customPrice: newEntry.customPrice,
                     categories: newEntry.categories,
+                    fabrics: {},
                   );
                   userProductItems.add(newProduct);
                   Navigator.of(context).pushNamedAndRemoveUntil(

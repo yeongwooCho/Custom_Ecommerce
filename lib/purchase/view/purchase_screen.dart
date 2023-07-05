@@ -4,6 +4,7 @@ import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
+import 'package:custom_clothes/common/model/enum/fabric_label.dart';
 import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
@@ -253,9 +254,6 @@ class _ProductInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ProductModel selectedItem =
-    //     totalProductItems.where((element) => element.id == id).first;
-
     ProductModel productItem =
         userProductItems.where((element) => element.id == id).first;
 
@@ -276,14 +274,6 @@ class _ProductInfo extends StatelessWidget {
                 product: productItem,
               ),
             ),
-            // productItem
-            // if (selectedItem.assetImageName != null)
-            //   Image.asset(
-            //     selectedItem.assetImageName!,
-            //     height: 150.0,
-            //     width: 150.0,
-            //     fit: BoxFit.fill,
-            //   ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Column(
@@ -295,36 +285,15 @@ class _ProductInfo extends StatelessWidget {
                     style: bodyBoldTextStyle,
                   ),
                   const SizedBox(height: 8.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '코튼(면)',
-                      ),
-                      Text('17%'),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('폴리우레탄'),
-                      Text('47%'),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('레이온'),
-                      Text('5%'),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('리넨(마)'),
-                      Text('31%'),
-                    ],
-                  ),
+                  ...productItem.fabrics.entries.map((entry) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(entry.key.label),
+                        Text('${entry.value} %'),
+                      ],
+                    );
+                  }),
                 ],
               ),
             )

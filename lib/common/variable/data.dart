@@ -16,6 +16,7 @@ List<ProductModel> totalProductItems = [
       CategoryLabel.recommend,
       CategoryLabel.top,
     ],
+    fabrics: {},
   ),
   ProductModel(
     id: Uuid().v4(),
@@ -30,6 +31,7 @@ List<ProductModel> totalProductItems = [
       CategoryLabel.recommend,
       CategoryLabel.top,
     ],
+    fabrics: {},
   ),
   ProductModel(
     id: Uuid().v4(),
@@ -44,6 +46,7 @@ List<ProductModel> totalProductItems = [
       CategoryLabel.recommend,
       CategoryLabel.outer,
     ],
+    fabrics: {},
   ),
   ProductModel(
     id: Uuid().v4(),
@@ -58,9 +61,8 @@ List<ProductModel> totalProductItems = [
       CategoryLabel.recommend,
       CategoryLabel.onePiece,
     ],
+    fabrics: {},
   ),
 ];
 
 List<ProductModel> userProductItems = [];
-// List<ProductModel> doingProductItems = [];
-// List<ProductModel> completionProductItems = [];
