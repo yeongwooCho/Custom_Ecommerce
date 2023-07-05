@@ -28,7 +28,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
   XFile? image;
 
   // text drag
-  String addedText = '';
+  String? addedText;
   TextStyle addedTextStyle = const TextStyle();
   OverlayEntry? overlayEntry;
   double overlayWidth = 0.0;
@@ -37,12 +37,10 @@ class _PrintingScreenState extends State<PrintingScreen> {
   double initDx = 0.0;
   double initDy = DefaultAppBar.defaultAppBarHeight + 24.0;
   GlobalKey textKey = GlobalKey();
-  bool isCompletionText = false;
 
   // image sticker
   Set<StickerModel> stickers = {};
   String? selectedId;
-  bool isCompletionImage = false;
   GlobalKey mainImageKey = GlobalKey();
   double imageMaxHeight = 0.0;
 
@@ -82,20 +80,15 @@ class _PrintingScreenState extends State<PrintingScreen> {
                     ),
                     ...stickers.map(
                       // 기본 위치는 중앙
-                      (sticker) {
-                        setState(() {
-                          isCompletionImage = true;
-                        });
-                        return Sticker(
-                          key: ObjectKey(sticker.id),
-                          onTransform: () {
-                            onTransform(sticker.id);
-                          },
-                          imgPath: sticker.imagePath,
-                          isSelected: selectedId == sticker.id,
-                          imageMaxHeight: imageMaxHeight,
-                        );
-                      },
+                      (sticker) => Sticker(
+                        key: ObjectKey(sticker.id),
+                        onTransform: () {
+                          onTransform(sticker.id);
+                        },
+                        imgPath: sticker.imagePath,
+                        isSelected: selectedId == sticker.id,
+                        imageMaxHeight: imageMaxHeight,
+                      ),
                     ),
                   ],
                 ),
@@ -108,24 +101,48 @@ class _PrintingScreenState extends State<PrintingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 24.0),
-                    CustomContainerButton(
-                      title: '텍스트 추가',
-                      isSelected: isCompletionText,
-                      onTap: () {
-                        initOverlayProperty();
-                        showAddTextModal(context: context);
-                        // _clickShow();
-                      },
-                    ),
+                    if (addedText == null)
+                      CustomContainerButton(
+                        title: '텍스트 추가',
+                        onTap: () {
+                          // initOverlayProperty();
+                          showAddTextModal(context: context);
+                          // _clickShow();
+                        },
+                        isSelected: null,
+                      ),
+                    if (addedText != null)
+                      CustomContainerButton(
+                        title: '텍스트 삭제',
+                        onTap: () {
+                          setState(() {
+                            initOverlayProperty();
+                            addedText = null;
+                          });
+                        },
+                        isSelected: null,
+                      ),
                     const SizedBox(height: 16.0),
-                    CustomContainerButton(
-                      title: '이미지 추가',
-                      isSelected: isCompletionImage,
-                      onTap: () async {
-                        await getImage();
-                        // _removeOverlay();
-                      },
-                    ),
+                    if (image == null)
+                      CustomContainerButton(
+                        title: '이미지 추가',
+                        onTap: () async {
+                          await getImage();
+                          // _removeOverlay();
+                        },
+                        isSelected: null,
+                      ),
+                    if (image != null)
+                      CustomContainerButton(
+                        title: '이미지 삭제',
+                        onTap: () {
+                          setState(() {
+                            image = null;
+                            stickers = {};
+                          });
+                        },
+                        isSelected: null,
+                      ),
                     const SizedBox(height: 36.0),
                     ElevatedButton(
                       onPressed: () {
@@ -162,7 +179,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
       setState(() {
         image = XFile(pickedFile.path); // 가져온 이미지를 _image에 저장
         stickers = {
-          ...stickers,
+          // ...stickers,
           StickerModel(
             id: Uuid().v4(), // 스티커의 고유 ID
             imagePath: image!.path,
@@ -170,6 +187,13 @@ class _PrintingScreenState extends State<PrintingScreen> {
         };
       });
     }
+  }
+
+  void onDeleteItem() {
+    // selected sticker 제외한 sticker 만 저장
+    setState(() {
+      stickers = stickers.where((sticker) => sticker.id != selectedId).toSet();
+    });
   }
 
   void onTransform(String id) {
@@ -300,7 +324,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
         ),
         child: Text(
           key: textKey,
-          addedText,
+          addedText!,
           style: addedTextStyle,
         ),
       ),
@@ -313,7 +337,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
   }) async {
     addedText = title;
     addedTextStyle = textStyle;
-    isCompletionText = true;
+    // isCompletionText = true;
     setState(() {});
     await _clickShow();
   }

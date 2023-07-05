@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class CustomContainerButton extends StatelessWidget {
   final String title;
-  final bool isSelected;
   final void Function()? onTap;
+  final bool? isSelected;
 
   const CustomContainerButton({
     Key? key,
     required this.title,
-    required this.isSelected,
     required this.onTap,
+    required this.isSelected,
   }) : super(key: key);
 
   @override
@@ -43,11 +43,11 @@ class CustomContainerButton extends StatelessWidget {
                     : bodyMediumTextStyle.copyWith(color: DARK_GREY_COLOR),
               ),
               const SizedBox(width: 12.0),
-              if (onTap != null)
+              if (onTap != null && isSelected != null)
                 Icon(
                   Icons.check_circle,
                   size: 30.0,
-                  color: isSelected ? PRIMARY_COLOR : DARK_GREY_COLOR,
+                  color: isSelected! ? PRIMARY_COLOR : DARK_GREY_COLOR,
                 ),
             ],
           ),
