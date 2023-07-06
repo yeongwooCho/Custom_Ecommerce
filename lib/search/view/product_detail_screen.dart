@@ -1,4 +1,5 @@
 import 'package:custom_clothes/common/component/divide_line.dart';
+import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
 import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/layout/default_layout.dart';
@@ -24,63 +25,102 @@ class ProductDetailScreen extends StatelessWidget {
 
     return DefaultLayout(
       appbar: const DefaultAppBar(title: ''),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (selectedItem.assetImageName != null)
-              Image.asset(selectedItem.assetImageName!),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    selectedItem.productName,
-                    style: productTitleStyle.copyWith(fontSize: 20.0),
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (selectedItem.assetImageName != null)
+                  Image.asset(selectedItem.assetImageName!),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        selectedItem.productName,
+                        style: productTitleStyle.copyWith(fontSize: 20.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        '${numberFormat.format(selectedItem.productPrice)} 원',
+                        style: productMoneyStyle.copyWith(fontSize: 24.0),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    '${numberFormat.format(selectedItem.productPrice)} 원',
-                    style: productMoneyStyle.copyWith(fontSize: 24.0),
+                ),
+                const DivideLine(),
+                // TODO: 여기 상세 이미지 수정해야 함.
+                ProductDetailDescriptionScreen(id: '1'),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ProductModel newEntry = totalProductItems
+                          .where((element) => element.id == id)
+                          .first;
+                      ProductModel newProduct = ProductModel(
+                        id: Uuid().v4(),
+                        isCompletion: false,
+                        assetImageName: newEntry.assetImageName,
+                        fileImage: newEntry.fileImage,
+                        productName: newEntry.productName,
+                        productPrice: newEntry.productPrice,
+                        customPrice: newEntry.customPrice,
+                        categories: newEntry.categories,
+                        fabrics: {},
+                      );
+                      userProductItems.add(newProduct);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        RouteNames.root,
+                            (route) => false,
+                      );
+                    },
+                    child: const Text('커스텀으로 이동하기'),
                   ),
-                ],
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              color: BACKGROUND_COLOR,
+              child: Padding(
+                padding:
+                const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    ProductModel newEntry = totalProductItems
+                        .where((element) => element.id == id)
+                        .first;
+                    ProductModel newProduct = ProductModel(
+                      id: Uuid().v4(),
+                      isCompletion: false,
+                      assetImageName: newEntry.assetImageName,
+                      fileImage: newEntry.fileImage,
+                      productName: newEntry.productName,
+                      productPrice: newEntry.productPrice,
+                      customPrice: newEntry.customPrice,
+                      categories: newEntry.categories,
+                      fabrics: {},
+                    );
+                    userProductItems.add(newProduct);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      RouteNames.root,
+                          (route) => false,
+                    );
+                  },
+                  child: const Text('커스텀으로 이동하기'),
+                ),
               ),
             ),
-            const DivideLine(),
-            // TODO: 여기 상세 이미지 수정해야 함.
-            ProductDetailDescriptionScreen(id: '1'),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  ProductModel newEntry = totalProductItems
-                      .where((element) => element.id == id)
-                      .first;
-                  ProductModel newProduct = ProductModel(
-                    id: Uuid().v4(),
-                    isCompletion: false,
-                    assetImageName: newEntry.assetImageName,
-                    fileImage: newEntry.fileImage,
-                    productName: newEntry.productName,
-                    productPrice: newEntry.productPrice,
-                    customPrice: newEntry.customPrice,
-                    categories: newEntry.categories,
-                    fabrics: {},
-                  );
-                  userProductItems.add(newProduct);
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    RouteNames.root,
-                    (route) => false,
-                  );
-                },
-                child: const Text('커스텀으로 이동하기'),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
