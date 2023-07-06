@@ -7,16 +7,20 @@ class CustomButtonsBottomSheet extends StatelessWidget {
   final String id;
   final String topButtonTitle;
   final String bottomButtonTitle;
+  final String? subButtonTitle;
   final Function()? onPressedTopButton;
   final Function()? onPressedBottomButton;
+  final Function()? onPressedSubButton;
 
   const CustomButtonsBottomSheet({
     Key? key,
     required this.id,
     required this.topButtonTitle,
     required this.bottomButtonTitle,
+    this.subButtonTitle,
     required this.onPressedTopButton,
     required this.onPressedBottomButton,
+    this.onPressedSubButton,
   }) : super(key: key);
 
   @override
@@ -70,6 +74,20 @@ class CustomButtonsBottomSheet extends StatelessWidget {
                     style: bodyMediumTextStyle,
                   ),
                 ),
+                const SizedBox(height: 12.0),
+                if (subButtonTitle != null)
+                  ElevatedButton(
+                    onPressed: () {
+                      if (onPressedSubButton != null) {
+                        onPressedSubButton!();
+                      }
+                    },
+                    style: secondButtonStyle,
+                    child: Text(
+                      subButtonTitle!,
+                      style: bodyMediumTextStyle,
+                    ),
+                  ),
               ],
             ),
           ),

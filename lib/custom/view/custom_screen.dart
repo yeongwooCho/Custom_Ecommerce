@@ -24,11 +24,14 @@ class _CustomScreenState extends State<CustomScreen> {
   @override
   Widget build(BuildContext context) {
     print('_CustomScreenState.build');
-    List<ProductModel> doingProductItems = userProductItems.where((element) => element.isCompletion == false).toList();
-    List<ProductModel> completionProductItems = userProductItems.where((element) => element.isCompletion == true).toList();
+    List<ProductModel> doingProductItems = userProductItems
+        .where((element) => element.isCompletion == false)
+        .toList();
+    List<ProductModel> completionProductItems = userProductItems
+        .where((element) => element.isCompletion == true)
+        .toList();
     print(doingProductItems);
     print(completionProductItems);
-
 
     return DefaultLayout(
       floatingActionButton: FloatingActionButton(
@@ -137,34 +140,50 @@ class _CustomScreenState extends State<CustomScreen> {
       context: context,
       barrierColor: BARRIER_COLOR,
       backgroundColor: EMPTY_COLOR,
-      builder: (_) => CustomButtonsBottomSheet(
-        id: id,
-        topButtonTitle: isDoing ? '완료 탭으로 이동' : '구매하기',
-        onPressedTopButton: isDoing
-            ? () {
-                ProductModel newEntry = userProductItems
-                    .where((element) => element.id == id)
-                    .first;
-                newEntry.isCompletion = true;
-                // completionProductItems.add(newEntry);
-                // doingProductItems.remove(newEntry);
+      builder: (_) => isDoing
+          ? CustomButtonsBottomSheet(
+              id: id,
+              topButtonTitle: '편집하기',
+              onPressedTopButton: () {
+                Navigator.of(context).pushNamed(
+                  RouteNames.selectFabric,
+                  arguments: ScreenArguments('id', id),
+                );
+              },
+              bottomButtonTitle: '삭제하기',
+              onPressedBottomButton: () {
+                userProductItems = userProductItems
+                    .where((element) => element.id != id)
+                    .toList();
                 Navigator.of(context).pop();
                 setState(() {});
-              }
-            : () {
+              },
+            )
+          : CustomButtonsBottomSheet(
+              id: id,
+              topButtonTitle: '구매하기',
+              onPressedTopButton: () {
                 Navigator.of(context).pushNamed(
                   RouteNames.purchase,
                   arguments: ScreenArguments('id', id),
                 );
               },
-        bottomButtonTitle: '편집하기',
-        onPressedBottomButton: () {
-          Navigator.of(context).pushNamed(
-            RouteNames.selectFabric,
-            arguments: ScreenArguments('id', id),
-          );
-        },
-      ),
+              bottomButtonTitle: '편집하기',
+              onPressedBottomButton: () {
+                Navigator.of(context).pushNamed(
+                  RouteNames.selectFabric,
+                  arguments: ScreenArguments('id', id),
+                );
+              },
+              subButtonTitle: "삭제하기",
+              onPressedSubButton: () {
+                userProductItems = userProductItems
+                    .where((element) => element.id != id)
+                    .toList();
+                Navigator.of(context).pop();
+                setState(() {});
+              },
+            ),
     );
   }
 }
