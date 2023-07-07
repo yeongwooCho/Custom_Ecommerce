@@ -53,10 +53,10 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
                 const DivideLine(),
                 // TODO: 여기 상세 이미지 수정해야 함.
-                ProductDetailDescriptionScreen(id: '1'),
+                ProductDetailDescriptionScreen(id: id),
                 Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   child: ElevatedButton(
                     onPressed: () {
                       ProductModel newEntry = totalProductItems
@@ -138,11 +138,11 @@ class ProductDetailDescriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(
-          11,
+          7,
           (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child:
-                    Image.asset('asset/image/product_detail/${id}_$index.JPG'),
+                    Image.asset('asset/image/product_detail/$id/$id-$index.JPG'),
               )),
     );
   }

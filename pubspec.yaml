@@ -92,8 +92,21 @@ flutter:
     - asset/image/logo/logo.png
     - asset/image/social_login_button/
     - asset/image/product/
-    - asset/image/product_detail/
     - asset/image/custom_guide/
+    - asset/image/product_detail/
+    - asset/image/product_detail/5/
+    - asset/image/product_detail/6/
+    - asset/image/product_detail/7/
+    - asset/image/product_detail/8/
+    - asset/image/product_detail/9/
+    - asset/image/product_detail/10/
+    - asset/image/product_detail/11/
+    - asset/image/product_detail/12/
+    - asset/image/product_detail/13/
+    - asset/image/product_detail/14/
+    - asset/image/product_detail/15/
+    - asset/image/product_detail/16/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
