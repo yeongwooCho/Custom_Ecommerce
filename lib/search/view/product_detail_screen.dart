@@ -7,6 +7,7 @@ import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/common/variable/format.dart';
+import 'package:custom_clothes/common/variable/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -52,7 +53,6 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 ),
                 const DivideLine(),
-                // TODO: 여기 상세 이미지 수정해야 함.
                 ProductDetailDescriptionScreen(id: id),
                 const Padding(
                   padding:
@@ -90,7 +90,8 @@ class ProductDetailScreen extends StatelessWidget {
                       fabrics: {},
                     );
                     userProductItems.add(newProduct);
-                    // TODO: 여기서 setPreferenceData
+                    setPreferenceData();
+
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       RouteNames.root,
                       (route) => false,

@@ -9,6 +9,7 @@ import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:custom_clothes/common/variable/format.dart';
+import 'package:custom_clothes/common/variable/shared_preference.dart';
 import 'package:custom_clothes/custom/component/drop_down_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -86,7 +87,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                   userProductItems = userProductItems
                       .where((element) => element.id != widget.id)
                       .toList();
-                  // TODO: 여기서 setPreferenceData
+                  setPreferenceData();
+
                   Navigator.of(context).pushNamed(
                     RouteNames.completion,
                     arguments: ScreenArguments('title', '결제가 완료되었습니다!'),

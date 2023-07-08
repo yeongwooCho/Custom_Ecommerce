@@ -2,13 +2,18 @@ import 'dart:developer';
 
 import 'package:custom_clothes/common/const/custom_button_style.dart';
 import 'package:custom_clothes/common/route/routes.dart';
+import 'package:custom_clothes/common/variable/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'common/view/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  sharedPreferences = await SharedPreferences.getInstance();
+  await getPreferenceData();
 
   runApp(const MyApp());
 }

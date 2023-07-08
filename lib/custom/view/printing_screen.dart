@@ -12,6 +12,7 @@ import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
+import 'package:custom_clothes/common/variable/shared_preference.dart';
 import 'package:custom_clothes/custom/component/custom_container_button.dart';
 import 'package:custom_clothes/custom/component/sticker.dart';
 import 'package:custom_clothes/custom/component/text_sticker.dart';
@@ -189,6 +190,7 @@ class _PrintingScreenState extends State<PrintingScreen> {
                             .first;
                         completionItem.fileImage = imgFile.path;
                         completionItem.isCompletion = true;
+                        setPreferenceData();
 
                         // 완료 페이지로 이동
                         Navigator.of(context).pushNamed(

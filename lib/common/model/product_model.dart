@@ -64,4 +64,12 @@ class ProductModel {
   String toString() {
     return 'ProductModel(id: $id, isCompletion: $isCompletion, assetImageName: $assetImageName, fileImage: $fileImage, productName: $productName, productPrice:$productPrice, customPrice: $customPrice, categories: $categories)';
   }
+
+  @override
+  bool operator ==(Object other) {
+    return (other as ProductModel).id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

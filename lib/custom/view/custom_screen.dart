@@ -8,6 +8,7 @@ import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/model/screen_arguments.dart';
 import 'package:custom_clothes/common/route/routes.dart';
 import 'package:custom_clothes/common/variable/data.dart';
+import 'package:custom_clothes/common/variable/shared_preference.dart';
 import 'package:custom_clothes/custom/view/bottom_sheet/custom_buttons_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
@@ -151,7 +152,8 @@ class _CustomScreenState extends State<CustomScreen> {
                 userProductItems = userProductItems
                     .where((element) => element.id != id)
                     .toList();
-                // TODO: 여기서 setPreferenceData
+                setPreferenceData();
+
                 Navigator.of(context).pop();
                 setState(() {});
               },
@@ -178,6 +180,8 @@ class _CustomScreenState extends State<CustomScreen> {
                     .where((element) => element.id != id)
                     .toList();
                 // TODO: 여기서 setPreferenceData
+                setPreferenceData();
+
                 Navigator.of(context).pop();
                 setState(() {});
               },
