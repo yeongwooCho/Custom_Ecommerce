@@ -55,8 +55,8 @@ class ProductDetailScreen extends StatelessWidget {
                 // TODO: 여기 상세 이미지 수정해야 함.
                 ProductDetailDescriptionScreen(id: id),
                 const Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 24.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                   child: SizedBox(
                     height: 300.0,
                     width: double.infinity,

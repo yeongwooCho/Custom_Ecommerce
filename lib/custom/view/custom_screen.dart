@@ -23,15 +23,12 @@ class _CustomScreenState extends State<CustomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('_CustomScreenState.build');
     List<ProductModel> doingProductItems = userProductItems
         .where((element) => element.isCompletion == false)
         .toList();
     List<ProductModel> completionProductItems = userProductItems
         .where((element) => element.isCompletion == true)
         .toList();
-    print(doingProductItems);
-    print(completionProductItems);
 
     return DefaultLayout(
       floatingActionButton: FloatingActionButton(
@@ -133,7 +130,6 @@ class _CustomScreenState extends State<CustomScreen> {
   }
 
   void onTapItem({required String id}) {
-    print("product id : $id");
     showModalBottomSheet(
       isDismissible: true,
       isScrollControlled: true,

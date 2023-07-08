@@ -1,6 +1,5 @@
 import 'package:custom_clothes/common/model/enum/catetory_label.dart';
 import 'package:custom_clothes/common/model/product_model.dart';
-import 'package:uuid/uuid.dart';
 
 List<ProductModel> totalProductItems = [
   ProductModel(
@@ -171,7 +170,6 @@ List<ProductModel> totalProductItems = [
     ],
     fabrics: {},
   ),
-
 ];
 
 List<ProductModel> userProductItems = [];

@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 class CustomFlexibleImage extends StatelessWidget {
   final ProductModel product;
 
-  // final bool isFlexible;
-
   const CustomFlexibleImage({
     Key? key,
     required this.product,

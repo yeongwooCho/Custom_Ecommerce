@@ -1,4 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
+
+// image to bytes image by RepaintBoundary
+import 'dart:ui' as ui;
 
 import 'package:custom_clothes/common/component/custom_flexible_image.dart';
 import 'package:custom_clothes/common/const/colors.dart';
@@ -19,10 +23,6 @@ import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-
-// image to bytes image by RepaintBoundary
-import 'dart:ui' as ui;
-import 'dart:typed_data';
 
 class PrintingScreen extends StatefulWidget {
   final String id;
@@ -64,8 +64,6 @@ class _PrintingScreenState extends State<PrintingScreen> {
         .where((element) => element.id == widget.id)
         .toList()
         .first;
-
-    print(customProduct.fabrics);
 
     return DefaultLayout(
       appbar: const DefaultAppBar(

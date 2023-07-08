@@ -115,7 +115,6 @@ class _MypageScreenState extends State<MypageScreen> {
                     title: '로그아웃',
                     style: textStyle,
                     onTap: () {
-                      print(1);
                       _showLogoutDialog();
                     }),
               ],

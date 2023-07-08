@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:custom_clothes/common/component/custom_flexible_image.dart';
 import 'package:custom_clothes/common/const/colors.dart';
 import 'package:custom_clothes/common/const/custom_text_style.dart';
@@ -31,6 +29,7 @@ class _CustomProductListScreenState extends State<CustomProductListScreen> {
     double itemWidth = (MediaQuery.of(context).size.width - 40) / 2;
     double itemHeight = itemWidth / 16 * 27;
     double footerHeight = itemHeight - itemWidth;
+
     return GridView.builder(
       physics: widget.isScroll ? null : NeverScrollableScrollPhysics(),
       // shrinkWrap: true,

@@ -50,7 +50,9 @@ class CustomRatioSlider extends StatelessWidget {
                   max: 100.0,
                   divisions: 99,
                   value: ratioValue,
-                  onChanged: ratioValue == 100.0 ? (double value){} : onRatioValueChange,
+                  onChanged: ratioValue == 100.0
+                      ? (double value) {}
+                      : onRatioValueChange,
                   label: '${ratioValue.toStringAsFixed(0)} %',
                 ),
               ),
@@ -58,7 +60,9 @@ class CustomRatioSlider extends StatelessWidget {
             const SizedBox(width: 10.0),
             Container(
               decoration: BoxDecoration(
-                color: (title != '배합률 합계' || ratioValue == 100.0) ? PRIMARY_COLOR : ERROR_COLOR,
+                color: (title != '배합률 합계' || ratioValue == 100.0)
+                    ? PRIMARY_COLOR
+                    : ERROR_COLOR,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               width: 70,

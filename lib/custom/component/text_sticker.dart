@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 // 이모티콘 스티커를 이미지에 붙이는 기능
 class TextSticker extends StatefulWidget {

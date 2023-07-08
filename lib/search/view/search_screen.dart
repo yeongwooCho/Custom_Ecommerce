@@ -65,7 +65,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     icon: Icon(Icons.search),
                     onPressed: () {
                       // Perform the search here
-                      print('검색');
                     },
                   ),
                   border: OutlineInputBorder(

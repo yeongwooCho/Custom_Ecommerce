@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:custom_clothes/common/layout/default_appbar.dart';
 import 'package:custom_clothes/common/model/product_model.dart';
 import 'package:custom_clothes/common/variable/data.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +44,9 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   Future<void> getPreferenceData() async {
     // input
     String? retrieveJsonString = prefs!.getString('items');
-    if (retrieveJsonString == null) { return; }
+    if (retrieveJsonString == null) {
+      return;
+    }
 
     var retrieveData = jsonDecode(retrieveJsonString) as List<dynamic>;
     for (var i in retrieveData) {
@@ -58,7 +59,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   Future<void> setPreferenceData() async {
     // output
     List<Map<String, dynamic>> data =
-    userProductItems.map((e) => e.toJson()).toList();
+        userProductItems.map((e) => e.toJson()).toList();
     String postJsonString = jsonEncode(data);
     await prefs!.setString('items', postJsonString);
 
