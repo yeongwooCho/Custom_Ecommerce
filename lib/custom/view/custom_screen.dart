@@ -155,6 +155,7 @@ class _CustomScreenState extends State<CustomScreen> {
                 userProductItems = userProductItems
                     .where((element) => element.id != id)
                     .toList();
+                // TODO: 여기서 setPreferenceData
                 Navigator.of(context).pop();
                 setState(() {});
               },
@@ -180,6 +181,7 @@ class _CustomScreenState extends State<CustomScreen> {
                 userProductItems = userProductItems
                     .where((element) => element.id != id)
                     .toList();
+                // TODO: 여기서 setPreferenceData
                 Navigator.of(context).pop();
                 setState(() {});
               },

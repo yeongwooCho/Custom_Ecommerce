@@ -34,8 +34,8 @@ class ProductDetailScreen extends StatelessWidget {
                 if (selectedItem.assetImageName != null)
                   Image.asset(selectedItem.assetImageName!),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 24.0, horizontal: 16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -54,32 +54,12 @@ class ProductDetailScreen extends StatelessWidget {
                 const DivideLine(),
                 // TODO: 여기 상세 이미지 수정해야 함.
                 ProductDetailDescriptionScreen(id: id),
-                Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ProductModel newEntry = totalProductItems
-                          .where((element) => element.id == id)
-                          .first;
-                      ProductModel newProduct = ProductModel(
-                        id: Uuid().v4(),
-                        isCompletion: false,
-                        assetImageName: newEntry.assetImageName,
-                        fileImage: newEntry.fileImage,
-                        productName: newEntry.productName,
-                        productPrice: newEntry.productPrice,
-                        customPrice: newEntry.customPrice,
-                        categories: newEntry.categories,
-                        fabrics: {},
-                      );
-                      userProductItems.add(newProduct);
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        RouteNames.root,
-                            (route) => false,
-                      );
-                    },
-                    child: const Text('커스텀으로 이동하기'),
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 24.0),
+                  child: SizedBox(
+                    height: 300.0,
+                    width: double.infinity,
                   ),
                 ),
               ],
@@ -91,8 +71,8 @@ class ProductDetailScreen extends StatelessWidget {
               width: double.infinity,
               color: BACKGROUND_COLOR,
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 24.0, horizontal: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
                     ProductModel newEntry = totalProductItems
@@ -110,9 +90,10 @@ class ProductDetailScreen extends StatelessWidget {
                       fabrics: {},
                     );
                     userProductItems.add(newProduct);
+                    // TODO: 여기서 setPreferenceData
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       RouteNames.root,
-                          (route) => false,
+                      (route) => false,
                     );
                   },
                   child: const Text('커스텀으로 이동하기'),
@@ -141,8 +122,8 @@ class ProductDetailDescriptionScreen extends StatelessWidget {
           7,
           (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child:
-                    Image.asset('asset/image/product_detail/$id/$id-$index.JPG'),
+                child: Image.asset(
+                    'asset/image/product_detail/$id/$id-$index.JPG'),
               )),
     );
   }

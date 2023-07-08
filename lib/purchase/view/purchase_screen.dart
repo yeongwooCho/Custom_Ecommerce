@@ -87,7 +87,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                   userProductItems = userProductItems
                       .where((element) => element.id != widget.id)
                       .toList();
-
+                  // TODO: 여기서 setPreferenceData
                   Navigator.of(context).pushNamed(
                     RouteNames.completion,
                     arguments: ScreenArguments('title', '결제가 완료되었습니다!'),
